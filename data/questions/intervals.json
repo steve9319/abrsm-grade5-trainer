@@ -1,0 +1,216 @@
+[
+  {
+    "id": "intervals-01",
+    "topic": "intervals",
+    "source": "original",
+    "question": "What is the melodic interval from the first note up to the second?",
+    "notation": "X:1\nM:2/4\nL:1/4\nK:C\nC A |",
+    "notationAlt": "Treble staff, no sharps or flats. Two crotchets: one on the ledger line below the staff, then one in the second space.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Minor 6th",
+        "explanation": "A minor 6th above C is A♭. The second note is A, one semitone larger."
+      },
+      {
+        "id": "B",
+        "text": "Major 6th",
+        "explanation": "C–D–E–F–G–A covers six letter names, and C up to A is nine semitones, which is a major 6th."
+      },
+      {
+        "id": "C",
+        "text": "Perfect 5th",
+        "explanation": "A perfect 5th above C is G, the note on the second line, not the A in the second space."
+      },
+      {
+        "id": "D",
+        "text": "Minor 7th",
+        "explanation": "A minor 7th above C is B♭. A is only a 6th above C."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The notes are C then A. Six letter names and nine semitones make a major 6th. C up to A♭ would be the minor form."
+  },
+  {
+    "id": "intervals-02",
+    "topic": "intervals",
+    "source": "original",
+    "question": "What is the interval from the first note up to the second?",
+    "notation": "X:1\nM:2/4\nL:1/4\nK:C\nF B |",
+    "notationAlt": "Treble staff, no key signature. A crotchet in the first space is followed by a crotchet on the middle line.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Perfect 4th",
+        "explanation": "F up to B♭ is the perfect 4th. The printed B is one semitone higher."
+      },
+      {
+        "id": "B",
+        "text": "Diminished 5th",
+        "explanation": "B up to F is a diminished 5th, the inversion of this interval, but the question rises from F to B."
+      },
+      {
+        "id": "C",
+        "text": "Augmented 4th",
+        "explanation": "F–G–A–B is a 4th, and it is one semitone larger than the perfect 4th F–B♭. That is an augmented 4th."
+      },
+      {
+        "id": "D",
+        "text": "Major 3rd",
+        "explanation": "A major 3rd above F is A. B is a 4th above F, not a 3rd."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "F up to B covers four letter names and is six semitones: one more than a perfect 4th, so it is augmented. It is the tritone."
+  },
+  {
+    "id": "intervals-03",
+    "topic": "intervals",
+    "source": "original",
+    "question": "A major 3rd inverts to a:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Minor 6th",
+        "explanation": "Major swaps with minor when an interval is inverted, and a 3rd inverts to a 6th (9 − 3). A major 3rd therefore becomes a minor 6th."
+      },
+      {
+        "id": "B",
+        "text": "Major 6th",
+        "explanation": "The number is right, but the quality does not stay major. Only perfect intervals stay perfect; major becomes minor."
+      },
+      {
+        "id": "C",
+        "text": "Minor 3rd",
+        "explanation": "Inversion changes the number as well as the quality. A 3rd does not invert to another 3rd."
+      },
+      {
+        "id": "D",
+        "text": "Perfect 6th",
+        "explanation": "A 6th is major or minor, never perfect. Perfect is reserved for unisons, 4ths, 5ths and octaves."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Turn a major 3rd upside down and you get a minor 6th. The two numbers add to 9, and major and minor exchange."
+  },
+  {
+    "id": "intervals-04",
+    "topic": "intervals",
+    "source": "original",
+    "question": "A major 10th is best described as:",
+    "options": [
+      {
+        "id": "A",
+        "text": "A compound minor 3rd",
+        "explanation": "The compound form keeps the quality of the simple interval. A minor 3rd would become a minor 10th, not a major 10th."
+      },
+      {
+        "id": "B",
+        "text": "A compound major 3rd",
+        "explanation": "An octave plus a major 3rd is a major 10th. Adding 7 to the interval number (3 + 7) gives 10, and the quality stays major."
+      },
+      {
+        "id": "C",
+        "text": "A compound perfect 4th",
+        "explanation": "A compound perfect 4th is an 11th. A 10th comes from a 3rd."
+      },
+      {
+        "id": "D",
+        "text": "A simple major 3rd",
+        "explanation": "Simple intervals stay within an octave. A 10th is wider than an octave, so it is compound."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Compound intervals are simple intervals plus an octave. A major 3rd plus an octave is a major 10th."
+  },
+  {
+    "id": "intervals-05",
+    "topic": "intervals",
+    "source": "original",
+    "question": "In C harmonic minor, the interval from A♭ up to B is:",
+    "options": [
+      {
+        "id": "A",
+        "text": "A major 2nd",
+        "explanation": "A major 2nd above A♭ is B♭, two semitones. A♭ up to B is three semitones."
+      },
+      {
+        "id": "B",
+        "text": "An augmented 2nd",
+        "explanation": "A♭ to B uses two letter names, so it is a 2nd, and it is one semitone larger than the major 2nd A♭–B♭. Harmonic minor is known for this augmented 2nd."
+      },
+      {
+        "id": "C",
+        "text": "A minor 3rd",
+        "explanation": "A minor 3rd is also three semitones, but it needs three letter names, such as A♭ to C♭. A♭ to B is spelled as a 2nd."
+      },
+      {
+        "id": "D",
+        "text": "A perfect 4th",
+        "explanation": "A perfect 4th above A♭ is D♭. B is much closer to A♭ than that."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "C harmonic minor raises the 7th to B and keeps the minor 6th, A♭. A♭ up to B is an augmented 2nd, the characteristic gap in the harmonic minor scale."
+  },
+  {
+    "id": "intervals-06",
+    "topic": "intervals",
+    "source": "original",
+    "question": "Which of these intervals is still perfect after it is inverted?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Major 2nd",
+        "explanation": "A major 2nd inverts to a minor 7th. The quality changes from major to minor."
+      },
+      {
+        "id": "B",
+        "text": "Minor 6th",
+        "explanation": "A minor 6th inverts to a major 3rd. Minor becomes major."
+      },
+      {
+        "id": "C",
+        "text": "Perfect 5th",
+        "explanation": "A perfect 5th inverts to a perfect 4th. Perfect stays perfect, and 5 + 4 = 9."
+      },
+      {
+        "id": "D",
+        "text": "Augmented 4th",
+        "explanation": "An augmented 4th inverts to a diminished 5th. Augmented and diminished exchange."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Perfect intervals invert to perfect intervals. A perfect 5th turns into a perfect 4th; the other choices all change quality."
+  },
+  {
+    "id": "intervals-07",
+    "topic": "intervals",
+    "source": "original",
+    "question": "In D major, the interval from the tonic up to the leading note is a:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Major 7th",
+        "explanation": "The leading note of D major is C♯. D up to C♯ is eleven semitones and seven letter names: a major 7th."
+      },
+      {
+        "id": "B",
+        "text": "Minor 7th",
+        "explanation": "D up to C natural is a minor 7th. D major raises that 7th to C♯."
+      },
+      {
+        "id": "C",
+        "text": "Diminished 7th",
+        "explanation": "A diminished 7th above D would be C♭, two semitones smaller than the major 7th. The leading note is C♯."
+      },
+      {
+        "id": "D",
+        "text": "Major 6th",
+        "explanation": "D up to B is a major 6th. The leading note is the 7th degree, not the 6th."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "In a major scale the leading note is a major 7th above the tonic. In D major that note is C♯."
+  }
+]

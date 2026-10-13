@@ -1,0 +1,32 @@
+{
+  "name": "abrsm-grade5-trainer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unofficial ABRSM Grade 5 music theory practice for piano students.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "node --import tsx --test tests/questions.test.ts tests/explain.test.ts tests/import.test.ts tests/exam.test.ts",
+    "validate": "tsx scripts/validate-questions.ts",
+    "import-questions": "tsx scripts/import-questions.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@fontsource/fraunces": "^5.2.8",
+    "@fontsource/outfit": "^5.2.8",
+    "abcjs": "^6.5.0",
+    "next": "^15.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.6",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}

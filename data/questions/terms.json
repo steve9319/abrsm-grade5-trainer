@@ -1,0 +1,212 @@
+[
+  {
+    "id": "terms-01",
+    "topic": "terms",
+    "source": "original",
+    "question": "Sotto voce means:",
+    "options": [
+      {
+        "id": "A",
+        "text": "In a full singing tone",
+        "explanation": "A full singing tone is closer to cantabile or sonoro. Sotto voce asks for the opposite, a held-back sound."
+      },
+      {
+        "id": "B",
+        "text": "In an undertone",
+        "explanation": "Sotto voce is Italian for 'under the voice'. The passage should be quiet and subdued, as if murmured."
+      },
+      {
+        "id": "C",
+        "text": "Suddenly loud",
+        "explanation": "Suddenly loud would be subito forte. Sotto voce is a quiet direction, not a sudden accent."
+      },
+      {
+        "id": "D",
+        "text": "Getting gradually faster",
+        "explanation": "Getting faster is accelerando, or stringendo if the music also presses forward. Sotto voce is about tone, not speed."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Sotto voce means in an undertone: softer and more subdued than the surrounding music."
+  },
+  {
+    "id": "terms-02",
+    "topic": "terms",
+    "source": "original",
+    "question": "Stringendo asks the player to:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Press on, getting faster",
+        "explanation": "Stringendo means tightening or squeezing the tempo. The music presses forward and becomes faster."
+      },
+      {
+        "id": "B",
+        "text": "Hold the speed back",
+        "explanation": "Holding back is ritenuto, or the French cédez. Stringendo pushes on rather than holding back."
+      },
+      {
+        "id": "C",
+        "text": "Play heavily",
+        "explanation": "Heavily is pesante. Stringendo is a tempo direction."
+      },
+      {
+        "id": "D",
+        "text": "Die away",
+        "explanation": "Dying away is morendo or perdendosi. Stringendo increases urgency; it does not fade the music out."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Stringendo tells you to press forward and get faster, as if the phrase is being tightened."
+  },
+  {
+    "id": "terms-03",
+    "topic": "terms",
+    "source": "original",
+    "question": "The German word langsam means:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Lively",
+        "explanation": "Lively is lebhaft. Langsam is at the slow end of the German tempo words."
+      },
+      {
+        "id": "B",
+        "text": "Slow",
+        "explanation": "Langsam means slow. It sits with Italian words such as lento and adagio."
+      },
+      {
+        "id": "C",
+        "text": "Fast",
+        "explanation": "Fast is schnell. Langsam is its opposite."
+      },
+      {
+        "id": "D",
+        "text": "Tender",
+        "explanation": "Tender or delicate is zart. Langsam describes speed, not touch."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Langsam is the German word for slow."
+  },
+  {
+    "id": "terms-04",
+    "topic": "terms",
+    "source": "original",
+    "question": "The French direction cédez means:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Yield, holding the speed back",
+        "explanation": "Cédez means yield. In music it tells the player to give way and hold the tempo back."
+      },
+      {
+        "id": "B",
+        "text": "Go faster",
+        "explanation": "Going faster would be plus vite, or animez. Cédez eases the speed off."
+      },
+      {
+        "id": "C",
+        "text": "Very softly",
+        "explanation": "Very softly is très doux. Cédez is about tempo, not dynamics."
+      },
+      {
+        "id": "D",
+        "text": "Lightly",
+        "explanation": "Lightly is légèrement. Cédez does not describe the weight of the touch."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Cédez asks you to yield: hold the music back rather than push the tempo on."
+  },
+  {
+    "id": "terms-05",
+    "topic": "terms",
+    "source": "original",
+    "question": "Mässig means:",
+    "options": [
+      {
+        "id": "A",
+        "text": "At a moderate speed",
+        "explanation": "Mässig means moderate. As a tempo word it is a comfortable, middle speed, like moderato."
+      },
+      {
+        "id": "B",
+        "text": "With movement, agitated",
+        "explanation": "With movement is bewegt. Mässig is calmer and simply means moderate."
+      },
+      {
+        "id": "C",
+        "text": "Sad",
+        "explanation": "Sad is traurig. Mässig is not a mood word."
+      },
+      {
+        "id": "D",
+        "text": "Without",
+        "explanation": "Without is ohne, as in ohne Pedal. Mässig does not mean without."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Mässig means moderate, and in a tempo mark it means at a moderate speed."
+  },
+  {
+    "id": "terms-06",
+    "topic": "terms",
+    "source": "original",
+    "question": "Dolente means:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Playful",
+        "explanation": "Playful is giocoso or scherzando. Dolente is sorrowful, not playful."
+      },
+      {
+        "id": "B",
+        "text": "Sorrowful",
+        "explanation": "Dolente comes from the Italian for grieving. The music should sound sad and aching."
+      },
+      {
+        "id": "C",
+        "text": "Simple, plain",
+        "explanation": "Simple is semplice. Dolente describes a sad mood, not a plain style."
+      },
+      {
+        "id": "D",
+        "text": "Martial, march-like",
+        "explanation": "March-like is marziale or alla marcia. Dolente has none of that stride."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Dolente means sorrowful, grieving or doleful."
+  },
+  {
+    "id": "terms-07",
+    "topic": "terms",
+    "source": "original",
+    "question": "Légèrement means:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Heavily",
+        "explanation": "Heavily would be the opposite touch. The French for heavy is lourd; légèrement is light."
+      },
+      {
+        "id": "B",
+        "text": "Slowly",
+        "explanation": "Slowly is lentement. Légèrement describes lightness, not a slow tempo."
+      },
+      {
+        "id": "C",
+        "text": "Lightly",
+        "explanation": "Légèrement means lightly. The notes should feel easy and not weighty, close to Italian leggiero."
+      },
+      {
+        "id": "D",
+        "text": "Little by little",
+        "explanation": "Little by little is peu à peu. Légèrement is an instruction about touch."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Légèrement is French for lightly."
+  }
+]

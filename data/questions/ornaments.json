@@ -1,0 +1,154 @@
+[
+  {
+    "id": "ornaments-01",
+    "topic": "ornaments",
+    "source": "original",
+    "question": "Which description matches a trill?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The written note, the note below, then the written note",
+        "explanation": "That three-note figure is a lower mordent. A trill keeps alternating for the length of the note."
+      },
+      {
+        "id": "B",
+        "text": "A rapid alternation of the written note and the note above",
+        "explanation": "A trill, marked tr, alternates the printed note with the note a step above it, quickly, for the value of the note."
+      },
+      {
+        "id": "C",
+        "text": "Note above, written note, note below, written note",
+        "explanation": "Those four notes are a turn. A trill is a repeated alternation, not a single four-note shape."
+      },
+      {
+        "id": "D",
+        "text": "A crushed grace note with a slash through its stem",
+        "explanation": "A little note with a slash is an acciaccatura. It is played as quickly as possible, not as a sustained alternation."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "A trill is the rapid alternation of the written note and the note above. At this grade you are asked to recognise it, including when the alternation has been written out."
+  },
+  {
+    "id": "ornaments-02",
+    "topic": "ornaments",
+    "source": "original",
+    "question": "The quick figure at the start of the bar (G–F–G) matches which ornament on G? Ignore the rest.",
+    "notation": "X:1\nM:2/4\nL:1/16\nK:C\nG F G2 z4 |",
+    "notationAlt": "Treble staff, no sharps or flats. Three short notes fall G, F, G, then the bar is completed by a rest.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Upper mordent",
+        "explanation": "An upper mordent on G would be G–A–G, using the note above. This figure goes down to F."
+      },
+      {
+        "id": "B",
+        "text": "Lower mordent",
+        "explanation": "A lower mordent is the written note, the note below, and the written note again. G–F–G is exactly that pattern on G."
+      },
+      {
+        "id": "C",
+        "text": "Turn",
+        "explanation": "A turn on G needs four notes: A–G–F–G. Only three notes are printed, and they start on G rather than on A."
+      },
+      {
+        "id": "D",
+        "text": "Inverted turn",
+        "explanation": "An inverted turn on G starts on the note below: F–G–A–G. The printed figure is G–F–G."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "G–F–G is the written-out lower mordent on G: main note, lower neighbour, main note."
+  },
+  {
+    "id": "ornaments-03",
+    "topic": "ornaments",
+    "source": "original",
+    "question": "A turn on D is written out as:",
+    "options": [
+      {
+        "id": "A",
+        "text": "E D C D",
+        "explanation": "A turn plays the note above, the written note, the note below, and the written note again. On D that is E–D–C–D."
+      },
+      {
+        "id": "B",
+        "text": "C D E D",
+        "explanation": "C–D–E–D starts on the lower note. That is an inverted turn on D, not the ordinary turn."
+      },
+      {
+        "id": "C",
+        "text": "D E D",
+        "explanation": "D–E–D uses the upper neighbour only once. That is an upper mordent, which has three notes rather than four."
+      },
+      {
+        "id": "D",
+        "text": "D C D",
+        "explanation": "D–C–D is a lower mordent. A turn includes both the upper and the lower neighbour."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The ordinary turn on D is the upper note, the main note, the lower note, and the main note: E–D–C–D."
+  },
+  {
+    "id": "ornaments-04",
+    "topic": "ornaments",
+    "source": "original",
+    "question": "An appoggiatura before an undotted crotchet normally takes:",
+    "options": [
+      {
+        "id": "A",
+        "text": "No time from the main note; it is crushed in as quickly as possible",
+        "explanation": "That description fits the acciaccatura, the grace note with a slash through the stem. An appoggiatura is a leaning note and it does take time."
+      },
+      {
+        "id": "B",
+        "text": "Half the value of the crotchet, leaving the main note as a quaver",
+        "explanation": "Before a plain note, the appoggiatura takes half the value. Half of a crotchet is a quaver, and the main note keeps the other quaver."
+      },
+      {
+        "id": "C",
+        "text": "The whole crotchet, so the main note is not played",
+        "explanation": "The appoggiatura borrows time, but the main note is still played. It is not replaced entirely."
+      },
+      {
+        "id": "D",
+        "text": "Two-thirds of the crotchet",
+        "explanation": "Two-thirds is the rule when the main note is dotted. A plain crotchet is not dotted, so the appoggiatura takes half, not two-thirds."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "An appoggiatura before an undotted note takes half that note's value. In front of a crotchet it is played as a quaver, and the crotchet is left as a quaver."
+  },
+  {
+    "id": "ornaments-05",
+    "topic": "ornaments",
+    "source": "original",
+    "question": "An acciaccatura is printed as:",
+    "options": [
+      {
+        "id": "A",
+        "text": "A small note with a stroke through its stem",
+        "explanation": "The slash through the stem is the sign of the acciaccatura. It is crushed in as quickly as possible, taking no real value from the main note."
+      },
+      {
+        "id": "B",
+        "text": "The letters tr above the note",
+        "explanation": "tr is the sign for a trill, a rapid alternation with the note above."
+      },
+      {
+        "id": "C",
+        "text": "A sideways S-shaped sign above the note",
+        "explanation": "That sign is a turn. It stands for four notes around the written note, not a single crushed grace note."
+      },
+      {
+        "id": "D",
+        "text": "A small note with no stroke, taking half the value of the following note",
+        "explanation": "A small note without a stroke, taking a share of the value, is an appoggiatura. The acciaccatura is the one with the stroke."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The acciaccatura is the grace note with a line through the stem, played as quickly as possible."
+  }
+]

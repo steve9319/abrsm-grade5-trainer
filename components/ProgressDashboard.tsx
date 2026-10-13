@@ -1,0 +1,143 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { clearProgress, loadProgress } from "@/lib/progress";
+import { overallStats, topicStats, weakestTopics } from "@/lib/stats";
+import { formatClock } from "@/lib/exam";
+import { topicMeta } from "@/lib/topics";
+import type { ProgressState, QuestionSummary } from "@/lib/types";
+
+export function ProgressDashboard({ bank }: { bank: QuestionSummary[] }) {
+  const [progress, setProgress] = useState<ProgressState | null>(null);
+  const [confirming, setConfirming] = useState(false);
+
+  useEffect(() => {
+    setProgress(loadProgress());
+  }, []);
+
+  if (!progress) {
+    return (
+      <div className="page">
+        <div className="narrow">
+          <p className="muted">Loading saved progress…</p>
+        </div>
+      </div>
+    );
+  }
+
+  const overall = overallStats(bank, progress.attempts);
+  const topics = topicStats(bank, progress.attempts);
+  const weak = weakestTopics(topics, 4);
+
+  return (
+    <div className="page">
+      <div className="narrow">
+        <p className="kicker">This browser</p>
+        <h1>Progress</h1>
+        <div className="card score-hero">
+          <strong>{overall.attempted === 0 ? "—" : `${overall.accuracy}%`}</strong>
+          <p>
+            {overall.correct} correct out of {overall.attempted} questions attempted, from a bank of {overall.total}.
+            Latest answer only: a retry replaces the older result.
+          </p>
+        </div>
+
+        <section className="section">
+          <h2>By topic</h2>
+          <div className="breakdown">
+            {topics.map((topic) => (
+              <div key={topic.topic}>
+                <span>
+                  <Link href={`/practice/${topic.topic}`}>{topic.title}</Link>
+                  <span className="muted">
+                    {" "}
+                    · {topic.attempted}/{topic.total} tried
+                  </span>
+                </span>
+                <span>{topic.attempted === 0 ? "—" : `${topic.accuracy}%`}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section">
+          <h2>Needs work</h2>
+          {weak.length === 0 ? (
+            <p className="section-intro">No weak topics yet. Miss a few, and they will show up here.</p>
+          ) : (
+            <div className="topic-grid">
+              {weak.map((topic) => (
+                <Link key={topic.topic} href={`/practice/${topic.topic}`} className="topic-card">
+                  <span className="topic-index">{topic.accuracy}%</span>
+                  <span>
+                    <h3>{topic.title}</h3>
+                    <p>
+                      {topic.correct} of {topic.attempted} correct.
+                    </p>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="section">
+          <h2>Mock papers</h2>
+          {progress.exams.length === 0 ? (
+            <p className="section-intro">
+              No papers yet. <Link href="/exam">Start a timed mock.</Link>
+            </p>
+          ) : (
+            <div className="breakdown">
+              {[...progress.exams].reverse().map((exam) => (
+                <div key={exam.id}>
+                  <span>
+                    {new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" }).format(exam.at)}
+                    <span className="muted"> · {formatClock(exam.secondsUsed)}</span>
+                  </span>
+                  <span>
+                    {exam.score}/{exam.total}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+          {progress.exams[0]?.byTopic ? (
+            <p className="muted">
+              Latest paper:{" "}
+              {progress.exams[progress.exams.length - 1]?.byTopic
+                .map((topic) => `${topicMeta(topic.topic)?.title ?? topic.topic} ${topic.score}/${topic.total}`)
+                .join(", ")}
+            </p>
+          ) : null}
+        </section>
+
+        <div className="row-actions">
+          {confirming ? (
+            <>
+              <button
+                className="btn danger"
+                type="button"
+                onClick={() => {
+                  clearProgress();
+                  setProgress(loadProgress());
+                  setConfirming(false);
+                }}
+              >
+                Clear saved progress
+              </button>
+              <button className="btn ghost" type="button" onClick={() => setConfirming(false)}>
+                Cancel
+              </button>
+            </>
+          ) : (
+            <button className="btn ghost" type="button" onClick={() => setConfirming(true)}>
+              Reset this browser
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
