@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+dist
+.env
+.env.local
+.env*.local
+*.log
+tsconfig.tsbuildinfo
+.DS_Store
+.vercel
+
+# Local paper extracts. Never commit MinerU output, scans, or question text from practice papers.
+private-bank/
