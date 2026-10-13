@@ -137,10 +137,13 @@ function worstAccuracy(section: PaperSection, stats: TopicStat[]): number | null
 }
 
 function reasonFor(section: PaperSection, worst: number | null, anyAttempt: boolean): string {
-  if (!anyAttempt || worst === null) {
+  if (!anyAttempt) {
     return section.marks === 15
       ? "No results yet. This section is worth 15 marks, so it gets the longest block."
       : "No results yet. Time follows the 10 marks this section carries.";
+  }
+  if (worst === null) {
+    return "Not tried yet, so this keeps a share of the hour. Missed sections get more.";
   }
   if (worst < 50) return "Your latest results here are under 50%. This block is deliberately longer.";
   if (worst < 80) return "This is started, and it is not secure yet.";
@@ -154,7 +157,8 @@ export function studyPlan(stats: TopicStat[]): StudySlot[] {
     const worst = worstAccuracy(section, stats);
     let multiplier = 1;
     if (anyAttempt) {
-      if (worst === null || worst < 50) multiplier = 1.8;
+      if (worst !== null && worst < 50) multiplier = 1.8;
+      else if (worst === null) multiplier = 1.15;
       else if (worst < 80) multiplier = 1.35;
       else multiplier = 0.65;
     }

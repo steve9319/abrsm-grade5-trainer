@@ -122,4 +122,14 @@ describe("study plan", () => {
     assert.ok(keys && baseKeys && keys.minutes > baseKeys.minutes);
     assert.match(keys.reason, /under 50%/);
   });
+
+  it("gives a missed section more of the hour than a section that has not been tried", () => {
+    const plan = studyPlan([stat("keys", 0, 2)]);
+    const keys = plan.find((slot) => slot.id === "keys");
+    const rhythm = plan.find((slot) => slot.id === "rhythm");
+    assert.ok(keys && rhythm);
+    assert.ok(keys.minutes >= rhythm.minutes + 4, `${keys.minutes} vs ${rhythm.minutes}`);
+    assert.match(keys.reason, /under 50%/);
+    assert.match(rhythm.reason, /Not tried yet/);
+  });
 });
