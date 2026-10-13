@@ -30,7 +30,7 @@ The 2021, 2022 and 2023 ABRSM practice-paper books are not in this bank. Their q
 
 1. Push this repository to GitHub.
 2. In Vercel, import the repository. The framework preset is Next.js. Leave the install and build commands as `npm install` and `npm run build`.
-3. Optional: in Project Settings → Environment Variables, set `ANTHROPIC_API_KEY` to an Anthropic API key. Set `ANTHROPIC_MODEL` only if you want a model other than the default.
+3. Optional: in Project Settings → Environment Variables, set `ANTHROPIC_API_KEY` to an Anthropic API key. The model defaults to `claude-fable-5-1`. Set `ANTHROPIC_MODEL` only if you want a different one.
 4. Deploy.
 
 Without the key, practice and the mock still work. A question that has no written explanation shows **explanation unavailable**.
@@ -110,7 +110,7 @@ JSON may be one question, an array, or `{ "questions": [ ... ] }`. See `data/exa
 
 ## Explanation fallback
 
-`app/api/explain/route.ts` runs on the server. It reads `ANTHROPIC_API_KEY` and calls the Anthropic Messages API. The model defaults to `claude-sonnet-5-5`. Override it with `ANTHROPIC_MODEL`.
+`app/api/explain/route.ts` runs on the server. It reads `ANTHROPIC_API_KEY` and calls the Anthropic Messages API. Explanations, answer checks, and concept lessons all default to `claude-fable-5-1`. Override that with `ANTHROPIC_MODEL`.
 
 The browser calls that route only when a checked question has a blank explanation or a blank option explanation. The reply is cached in `localStorage`. The key never goes to the browser. If the key is missing, or the request fails, the page shows `explanation unavailable` and the rest of the app keeps working.
 

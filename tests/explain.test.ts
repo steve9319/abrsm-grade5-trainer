@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
+import { requestIndependentAnswer } from "@/lib/answer-check";
 import { EXPLANATION_UNAVAILABLE_TEXT } from "@/lib/copy";
 import {
   DEFAULT_ANTHROPIC_MODEL,
@@ -7,6 +8,8 @@ import {
   requestExplanation,
   type ExplainInput,
 } from "@/lib/explain";
+import { requestLesson } from "@/lib/lesson";
+import type { Question } from "@/lib/types";
 
 const sample: ExplainInput = {
   topic: "intervals",
@@ -30,7 +33,7 @@ describe("explanation fallback", () => {
     assert.deepEqual(result.body, { available: false, message: EXPLANATION_UNAVAILABLE_TEXT });
   });
 
-  it("uses claude-sonnet-5-5 unless ANTHROPIC_MODEL is set", async () => {
+  it("uses claude-fable-5-1 unless ANTHROPIC_MODEL is set", async () => {
     const seen: string[] = [];
     const fetchImpl: typeof fetch = async (_url, init) => {
       const body = JSON.parse(String(init?.body)) as { model: string };
@@ -47,7 +50,7 @@ describe("explanation fallback", () => {
 
     const generated = await requestExplanation(sample, { ANTHROPIC_API_KEY: "test-key" }, fetchImpl);
     assert.equal(seen[0], DEFAULT_ANTHROPIC_MODEL);
-    assert.equal(DEFAULT_ANTHROPIC_MODEL, "claude-sonnet-5-5");
+    assert.equal(DEFAULT_ANTHROPIC_MODEL, "claude-fable-5-1");
     assert.equal(generated.body.available, true);
     if (generated.body.available) {
       assert.match(generated.body.explanation, /perfect 5th/);
@@ -60,6 +63,34 @@ describe("explanation fallback", () => {
       fetchImpl,
     );
     assert.equal(seen[1], "claude-sonnet-custom");
+
+    const lesson = await requestLesson(
+      { topic: "keys", subtopic: "key-signatures", title: "Key signatures" },
+      { ANTHROPIC_API_KEY: "test-key" },
+      fetchImpl,
+    );
+    assert.equal(seen[2], "claude-fable-5-1");
+    assert.equal(lesson.body.available, false);
+
+    const checked = await requestIndependentAnswer(
+      {
+        id: "keys-99",
+        topic: "keys",
+        subtopic: "key-signatures",
+        source: "original",
+        question: "How many sharps are there in D major?",
+        options: [
+          { id: "A", text: "One", explanation: "" },
+          { id: "B", text: "Two", explanation: "" },
+        ],
+        correctAnswer: "B",
+        explanation: "",
+      } satisfies Question,
+      { ANTHROPIC_API_KEY: "test-key" },
+      fetchImpl,
+    );
+    assert.equal(seen[3], "claude-fable-5-1");
+    assert.equal(checked, null);
   });
 
   it("hides API failures behind explanation unavailable", async () => {

@@ -1,6 +1,6 @@
 import { EXPLANATION_UNAVAILABLE_TEXT } from "@/lib/copy";
 
-export const DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-5-5";
+export const DEFAULT_ANTHROPIC_MODEL = "claude-fable-5-1";
 
 export interface ExplainInput {
   id?: string;
