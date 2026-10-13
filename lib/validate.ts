@@ -10,6 +10,8 @@ export interface ValidationIssue {
 export interface ValidateOptions {
   /** When false, blank explanations are allowed (draft questions that use the API fallback). */
   requireExplanations?: boolean;
+  /** When false, a blank correctAnswer is allowed until Claude fills a private question. */
+  requireCorrectAnswer?: boolean;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -26,6 +28,7 @@ export function validateQuestion(
   settings: ValidateOptions = {},
 ): ValidationIssue[] {
   const requireExplanations = settings.requireExplanations !== false;
+  const requireCorrectAnswer = settings.requireCorrectAnswer !== false;
   const issues: ValidationIssue[] = [];
   if (!isRecord(value)) {
     return [issue(file, undefined, "Question must be a JSON object")];
@@ -130,14 +133,61 @@ export function validateQuestion(
 
   const correctAnswer = typeof value.correctAnswer === "string" ? value.correctAnswer.trim() : "";
   const matches = parsedOptions.filter((option) => option.id === correctAnswer);
-  if (matches.length !== 1) {
-    issues.push(
-      issue(
-        file,
-        id || undefined,
-        `correctAnswer must match exactly one option id (received ${JSON.stringify(correctAnswer)})`,
-      ),
-    );
+  if (requireCorrectAnswer || correctAnswer) {
+    if (matches.length !== 1) {
+      issues.push(
+        issue(
+          file,
+          id || undefined,
+          `correctAnswer must match exactly one option id (received ${JSON.stringify(correctAnswer)})`,
+        ),
+      );
+    }
+  }
+
+  if (value.year !== undefined && (typeof value.year !== "number" || !Number.isInteger(value.year))) {
+    issues.push(issue(file, id || undefined, "year, when present, must be an integer"));
+  }
+  if (value.paper !== undefined && (typeof value.paper !== "string" || !value.paper.trim())) {
+    issues.push(issue(file, id || undefined, "paper, when present, must be a non-empty string"));
+  }
+  if (value.questionNumber !== undefined && (typeof value.questionNumber !== "string" || !value.questionNumber.trim())) {
+    issues.push(issue(file, id || undefined, "questionNumber, when present, must be a non-empty string"));
+  }
+  if (value.marks !== undefined && (typeof value.marks !== "number" || !Number.isInteger(value.marks) || value.marks < 1)) {
+    issues.push(issue(file, id || undefined, "marks, when present, must be a positive integer"));
+  }
+  if (value.imagePath !== undefined) {
+    if (typeof value.imagePath !== "string" || !value.imagePath.trim() || value.imagePath.includes("..")) {
+      issues.push(issue(file, id || undefined, "imagePath, when present, must be a relative path inside the private bank"));
+    }
+  }
+  if (value.studentAnswer !== undefined && typeof value.studentAnswer !== "string") {
+    issues.push(issue(file, id || undefined, "studentAnswer, when present, must be a string"));
+  }
+  if (value.privateAnswer !== undefined) {
+    if (!isRecord(value.privateAnswer)) {
+      issues.push(issue(file, id || undefined, "privateAnswer, when present, must be an object"));
+    } else {
+      const generated = value.privateAnswer;
+      if (typeof generated.claudeAnswer !== "string" || !generated.claudeAnswer.trim()) {
+        issues.push(issue(file, id || undefined, "privateAnswer.claudeAnswer must be an option id"));
+      }
+      if (typeof generated.model !== "string" || !generated.model.trim()) {
+        issues.push(issue(file, id || undefined, "privateAnswer.model is required"));
+      }
+      if (typeof generated.checkedAt !== "string" || !generated.checkedAt.trim()) {
+        issues.push(issue(file, id || undefined, "privateAnswer.checkedAt is required"));
+      }
+      if (typeof generated.studentDisagrees !== "boolean") {
+        issues.push(issue(file, id || undefined, "privateAnswer.studentDisagrees must be true or false"));
+      }
+      if (typeof generated.note !== "string" || !generated.note.trim()) {
+        issues.push(issue(file, id || undefined, "privateAnswer.note is required"));
+      } else if (generated.studentDisagrees === true && !generated.note.toLowerCase().includes("differs")) {
+        issues.push(issue(file, id || undefined, "a handwritten answer that differs must be flagged in privateAnswer.note"));
+      }
+    }
   }
 
   if (value.answerCheck !== undefined) {

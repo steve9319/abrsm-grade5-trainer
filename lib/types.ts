@@ -30,6 +30,16 @@ export interface AnswerCheck {
   note: string;
 }
 
+/** Cached Claude answer for a private question that had no stored key. */
+export interface PrivateAnswer {
+  checkedAt: string;
+  model: string;
+  claudeAnswer: string;
+  /** True when the handwritten scan answer does not match Claude. */
+  studentDisagrees: boolean;
+  note: string;
+}
+
 export interface Question {
   id: string;
   topic: TopicId | string;
@@ -48,6 +58,22 @@ export interface Question {
   explanation: string;
   /** Cached Claude check. Present only after `npm run check-answers` has run with a key. */
   answerCheck?: AnswerCheck;
+  /** Printed paper year, when this question was imported from a local extract. */
+  year?: number;
+  /** Paper label, for example "A". */
+  paper?: string;
+  /** Printed number, for example "2.1". */
+  questionNumber?: string;
+  /** How many marks the printed question was worth. */
+  marks?: number;
+  /** Image path relative to the private bank, for a score excerpt. */
+  imagePath?: string;
+  /** Handwritten answer read from the scan, when MinerU captured one. */
+  studentAnswer?: string;
+  /** Stamped by the loader for questions read from PRIVATE_BANK_DIR. Not stored in the public bank. */
+  private?: boolean;
+  /** Cached result of generating an answer for a private question. */
+  privateAnswer?: PrivateAnswer;
 }
 
 export interface Attempt {
@@ -94,4 +120,5 @@ export interface QuestionSummary {
   id: string;
   topic: string;
   subtopic: string;
+  private?: boolean;
 }

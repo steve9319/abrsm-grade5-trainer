@@ -8,7 +8,15 @@ import { TOPICS } from "@/lib/topics";
 import { EXAM_MINUTES, EXAM_PER_TOPIC, EXAM_TOPICS } from "@/lib/exam";
 import type { ProgressState, QuestionSummary } from "@/lib/types";
 
-export function HomeDashboard({ bank }: { bank: QuestionSummary[] }) {
+export function HomeDashboard({
+  bank,
+  privateCount = 0,
+  draftCount = 0,
+}: {
+  bank: QuestionSummary[];
+  privateCount?: number;
+  draftCount?: number;
+}) {
   const [progress, setProgress] = useState<ProgressState | null>(null);
 
   useEffect(() => {
@@ -74,6 +82,12 @@ export function HomeDashboard({ bank }: { bank: QuestionSummary[] }) {
             Rhythm, pitch, keys, intervals, chords, transposition, terms, ornaments and music in
             context, plus a short piano aural and sight-reading set.{" "}
             <Link href="/practice/mixed">Mix the whole bank.</Link>
+            {privateCount > 0
+              ? ` ${privateCount} from My papers ${privateCount === 1 ? "is" : "are"} included in topic practice, the mock, and weak-spot drills.`
+              : ""}
+            {draftCount > 0
+              ? ` ${draftCount} more from My papers ${draftCount === 1 ? "is" : "are"} in topic practice until an answer is stored.`
+              : ""}
           </p>
           <div className="topic-grid">
             {TOPICS.map((topic, index) => {

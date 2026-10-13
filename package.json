@@ -7,10 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --import tsx --test tests/questions.test.ts tests/explain.test.ts tests/import.test.ts tests/exam.test.ts tests/answer-check.test.ts tests/training.test.ts",
+    "test": "node --import tsx --test tests/questions.test.ts tests/explain.test.ts tests/import.test.ts tests/exam.test.ts tests/answer-check.test.ts tests/training.test.ts tests/private-bank.test.ts",
     "validate": "tsx scripts/validate-questions.ts",
     "import-questions": "tsx scripts/import-questions.ts",
-    "check-answers": "tsx scripts/check-with-claude.ts"
+    "import-mineru": "tsx scripts/import-mineru.ts",
+    "check-answers": "tsx scripts/check-with-claude.ts",
+    "check-private": "tsx scripts/check-private.ts"
   },
   "engines": {
     "node": ">=20"

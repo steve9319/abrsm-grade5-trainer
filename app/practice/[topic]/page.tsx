@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PracticeSession } from "@/components/PracticeSession";
-import { loadQuestions } from "@/lib/questions.server";
+import { loadAllQuestions } from "@/lib/private-bank";
 import { isTopicId, topicMeta } from "@/lib/topics";
 import { TOPIC_IDS } from "@/lib/types";
+
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return [...TOPIC_IDS.map((topic) => ({ topic })), { topic: "mixed" }];
@@ -22,7 +24,7 @@ export async function generateMetadata({
 export default async function PracticeTopicPage({ params }: { params: Promise<{ topic: string }> }) {
   const { topic } = await params;
   if (topic !== "mixed" && !isTopicId(topic)) notFound();
-  const all = loadQuestions();
+  const all = loadAllQuestions();
   const questions = topic === "mixed" ? all : all.filter((question) => question.topic === topic);
   const meta =
     topic === "mixed"

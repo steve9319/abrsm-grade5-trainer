@@ -108,6 +108,27 @@ Each file in `data/questions` is a JSON array. One question looks like this:
 
 JSON may be one question, an array, or `{ "questions": [ ... ] }`. See `data/examples/question.json`.
 
+## Private papers on this computer
+
+Extract a paper you own with [MinerU](https://github.com/opendatalab/MinerU) on your Mac. Keep that output, and everything it produces, out of git.
+
+```bash
+npm run import-mineru -- /path/to/mineru-folder --year 2024 --paper A
+npm run check-private
+```
+
+`import-mineru` reads the MinerU folder (`*_content_list.json`, and the markdown file when that list has no numbered questions, plus the `images` folder). It groups blocks by printed numbers such as `2.1`, keeps the options, the mark count, any figure, and a handwritten `Answer:` line when MinerU captured one. It writes JSON into `PRIVATE_BANK_DIR`, which defaults to `./private-bank/`. That folder is in `.gitignore`. Do not copy it into `data/questions`, and do not commit it.
+
+The same folder receives `import-report.json`. A question is listed there when options are missing, notation or a figure could not be read, or the OCR looks garbled. Questions with fewer than two options are reported and not added to the bank. Running the import again on the same paper refreshes the extract and keeps any answer, explanations, and Claude cache already stored for that question.
+
+`check-private` asks Claude (`claude-fable-5-1`, or `ANTHROPIC_MODEL`) for an answer only when `correctAnswer` is empty. It writes that answer, and an explanation of every option, back into the private JSON. A later run skips questions that already have an answer and explanations. If `studentAnswer` differs from Claude, `privateAnswer.studentDisagrees` is true and the note says the handwritten answer differs. The handwritten line is not treated as the key.
+
+Refresh the app. Private questions are tagged **My papers** and appear in topic practice. Once an answer is stored they also go into the mock paper and weak-spot drills. A score excerpt is served from the private folder by `/api/private-image` and is not copied into `public/`.
+
+Without `ANTHROPIC_API_KEY`, `check-private` changes nothing. A private question that still has no answer can be opened in topic practice and shows `explanation unavailable`.
+
+The test fixture at `tests/fixtures/mineru-synthetic` is invented. It is not a past paper.
+
 ## Explanation fallback
 
 `app/api/explain/route.ts` runs on the server. It reads `ANTHROPIC_API_KEY` and calls the Anthropic Messages API. Explanations, answer checks, and concept lessons all default to `claude-fable-5-1`. Override that with `ANTHROPIC_MODEL`.

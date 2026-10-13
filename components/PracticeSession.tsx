@@ -35,6 +35,10 @@ export function PracticeSession({
 
   function check() {
     if (!question || !selected || locked) return;
+    if (!question.correctAnswer.trim()) {
+      setLocked(true);
+      return;
+    }
     const correct = selected === question.correctAnswer;
     recordAttempt({
       questionId: question.id,

@@ -41,15 +41,33 @@ export function QuestionView({
   const usedGenerated = Boolean(generated) && (!question.explanation.trim() || question.options.some((option) => !option.explanation.trim()));
   const why = resolveText(question.explanation, generated?.explanation, generating, unavailable);
 
+  const unanswered = !question.correctAnswer.trim();
+
   return (
     <article className="question" id="question">
+      {question.private ? (
+        <p className="kicker">
+          My papers
+          {question.questionNumber ? ` · ${question.questionNumber}` : ""}
+          {question.year ? ` · ${question.year}` : ""}
+          {question.paper ? ` ${question.paper}` : ""}
+          {question.marks ? ` · ${question.marks} marks` : ""}
+        </p>
+      ) : null}
       {question.notation ? <Staff notation={question.notation} label={question.notationAlt} /> : null}
+      {question.imagePath ? (
+        <img
+          className="score-excerpt"
+          src={`/api/private-image?path=${encodeURIComponent(question.imagePath)}`}
+          alt={question.notationAlt || "Score excerpt"}
+        />
+      ) : null}
       <p className="stem">{question.question}</p>
       <div className="options" role="group" aria-label="Answer choices">
         {question.options.map((option) => {
           const pressed = selected === option.id;
-          const showCorrect = locked && option.id === question.correctAnswer;
-          const showWrong = locked && pressed && option.id !== question.correctAnswer;
+          const showCorrect = locked && !unanswered && option.id === question.correctAnswer;
+          const showWrong = locked && !unanswered && pressed && option.id !== question.correctAnswer;
           return (
             <button
               key={option.id}
@@ -66,18 +84,23 @@ export function QuestionView({
         })}
       </div>
       {locked ? (
-        <section className={cn("feedback", !isCorrect && "miss")} id="feedback" aria-live="polite">
-          <p className="kicker">{isCorrect ? "Correct" : "Not quite"}</p>
+        <section className={cn("feedback", !unanswered && !isCorrect && "miss")} id="feedback" aria-live="polite">
+          <p className="kicker">{unanswered ? "No stored answer" : isCorrect ? "Correct" : "Not quite"}</p>
           <h2>
-            {isCorrect
-              ? `${correct?.id}. ${correct?.text}`
-              : `The answer is ${correct?.id}. ${correct?.text}`}
+            {unanswered
+              ? "This question does not have an answer yet."
+              : isCorrect
+                ? `${correct?.id}. ${correct?.text}`
+                : `The answer is ${correct?.id}. ${correct?.text}`}
           </h2>
           {!isCorrect && chosen ? (
             <p className="muted">You chose {chosen.id}. {chosen.text}</p>
           ) : null}
           {question.answerCheck && !question.answerCheck.agreed ? (
             <p className="disagreement">{question.answerCheck.note}</p>
+          ) : null}
+          {question.privateAnswer?.studentDisagrees ? (
+            <p className="disagreement">{question.privateAnswer.note}</p>
           ) : null}
           {usedGenerated ? <p className="generated-note">Generated explanation</p> : null}
           <h3>Why</h3>

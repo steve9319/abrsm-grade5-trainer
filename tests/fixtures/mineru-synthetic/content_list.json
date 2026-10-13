@@ -1,0 +1,62 @@
+[
+  {
+    "type": "text",
+    "text": "1.1 In this invented drill, how many crotchet beats are in a minim? (2 marks)",
+    "text_level": 1,
+    "page_idx": 0,
+    "bbox": [40, 40, 800, 90]
+  },
+  {
+    "type": "image",
+    "img_path": "images/bar.png",
+    "image_caption": ["Invented rhythm figure"],
+    "page_idx": 0,
+    "bbox": [40, 100, 400, 220]
+  },
+  {
+    "type": "text",
+    "text": "A One",
+    "page_idx": 0
+  },
+  {
+    "type": "text",
+    "text": "B Two",
+    "page_idx": 0
+  },
+  {
+    "type": "text",
+    "text": "C Three",
+    "page_idx": 0
+  },
+  {
+    "type": "text",
+    "text": "D Four",
+    "page_idx": 0
+  },
+  {
+    "type": "text",
+    "text": "Answer: B",
+    "page_idx": 0
+  },
+  {
+    "type": "text",
+    "text": "2.1 Invented follow-up with a missing figure. (3 marks)",
+    "page_idx": 0
+  },
+  {
+    "type": "text",
+    "text": "A Only one option was read",
+    "page_idx": 0
+  },
+  {
+    "type": "image",
+    "img_path": "images/missing-staff.png",
+    "image_caption": [],
+    "page_idx": 0
+  },
+  {
+    "type": "text",
+    "text": "g@rbled ### n0tati0n ???",
+    "page_idx": 0
+  }
+]
