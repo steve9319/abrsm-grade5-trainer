@@ -7,6 +7,7 @@ import "@fontsource/outfit/latin-500.css";
 import "@fontsource/outfit/latin-600.css";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import { SignOutButton } from "@/components/SignOutButton";
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip" href="#main">
           Skip to content
         </a>
-        <Header />
+        <Header>
+          <SignOutButton />
+        </Header>
         <main id="main">{children}</main>
         <footer className="site-footer">
           <p>

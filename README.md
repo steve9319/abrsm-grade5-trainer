@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Copy `.env.example` to `.env.local` and fill in the Google sign-in variables below, then open [http://localhost:3000](http://localhost:3000). The first screen is the Google sign-in page.
 
 ```bash
 npm test
@@ -30,12 +30,39 @@ The 2021, 2022 and 2023 ABRSM practice-paper books are not in this bank. Their q
 
 1. Push this repository to GitHub.
 2. In Vercel, import the repository. The framework preset is Next.js. Leave the install and build commands as `npm install` and `npm run build`.
-3. Optional: in Project Settings → Environment Variables, set `ANTHROPIC_API_KEY` to an Anthropic API key. The model defaults to `claude-fable-5-1`. Set `ANTHROPIC_MODEL` only if you want a different one.
-4. Deploy.
+3. In Project Settings → Environment Variables, set the Auth.js variables from the next section. Sign-in will not complete until they are present.
+4. Optional: set `ANTHROPIC_API_KEY` to an Anthropic API key. The model defaults to `claude-fable-5-1`. Set `ANTHROPIC_MODEL` only if you want a different one.
+5. Deploy.
 
-Without the key, practice and the mock still work. A question that has no written explanation shows **explanation unavailable**.
+Without the Anthropic key, practice and the mock still work. A question that has no written explanation shows **explanation unavailable**.
 
-Copy `.env.example` to `.env.local` for the same variables on your machine. Never commit a real key.
+Copy `.env.example` to `.env.local` for the same variables on your machine. Never commit a real key or OAuth secret.
+
+## Google sign-in
+
+Every page, API route, and private image is behind Auth.js (next-auth v5) with the Google provider. Middleware sends an unsigned visitor to `/signin`. An unsigned call to `/api/*` (including `/api/private-image`) gets `401`. `/api/auth/*` stays open so Google can finish the redirect.
+
+Only addresses in `ALLOWED_EMAILS` may sign in. The check trims spaces and ignores case. Anyone else lands on `/access-denied`. The app does not contain a built-in list: an empty `ALLOWED_EMAILS` denies every account. The intended allowlist for this practice room is `stevezaniel@gmail.com,arisatan9319@gmail.com`.
+
+```bash
+AUTH_SECRET=                # openssl rand -base64 32
+AUTH_GOOGLE_ID=
+AUTH_GOOGLE_SECRET=
+ALLOWED_EMAILS=stevezaniel@gmail.com,arisatan9319@gmail.com
+AUTH_TRUST_HOST=true
+```
+
+Create the Google client:
+
+1. Open [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → OAuth consent screen. Choose External, add the app name, and add both Gmail addresses as test users while the app stays in Testing.
+2. APIs & Services → Credentials → Create credentials → OAuth client ID → Web application.
+3. Authorised JavaScript origins: `http://localhost:3000` and `https://abrsm-grade5-trainer.vercel.app`.
+4. Authorised redirect URIs, exactly:
+   - `https://abrsm-grade5-trainer.vercel.app/api/auth/callback/google`
+   - `http://localhost:3000/api/auth/callback/google`
+5. Copy the client ID into `AUTH_GOOGLE_ID` and the client secret into `AUTH_GOOGLE_SECRET`, locally in `.env.local` and on Vercel. Set `AUTH_SECRET` and `AUTH_TRUST_HOST=true` in both places, and set `ALLOWED_EMAILS` to the two addresses above.
+
+The header shows **Sign out** once you are inside the practice room.
 
 ## How practice works
 

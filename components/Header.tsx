@@ -15,8 +15,9 @@ function Mark() {
   );
 }
 
-export function Header() {
+export function Header({ children }: { children?: React.ReactNode }) {
   const path = usePathname();
+  const gate = path === "/signin" || path === "/access-denied";
   return (
     <header className="site-header">
       <div className="wrap header-inner">
@@ -27,23 +28,26 @@ export function Header() {
             <small>Piano practice room</small>
           </span>
         </Link>
-        <nav aria-label="Primary">
-          <Link href="/#topics" aria-current={path === "/" ? "page" : undefined}>
-            Practise
-          </Link>
-          <Link href="/practice/weak" aria-current={path.startsWith("/practice/weak") ? "page" : undefined}>
-            Weak spots
-          </Link>
-          <Link href="/exam" aria-current={path.startsWith("/exam") ? "page" : undefined}>
-            Mock paper
-          </Link>
-          <Link href="/strategy" aria-current={path.startsWith("/strategy") ? "page" : undefined}>
-            Strategy
-          </Link>
-          <Link href="/progress" aria-current={path.startsWith("/progress") ? "page" : undefined}>
-            Progress
-          </Link>
-        </nav>
+        {gate ? null : (
+          <nav aria-label="Primary">
+            <Link href="/#topics" aria-current={path === "/" ? "page" : undefined}>
+              Practise
+            </Link>
+            <Link href="/practice/weak" aria-current={path.startsWith("/practice/weak") ? "page" : undefined}>
+              Weak spots
+            </Link>
+            <Link href="/exam" aria-current={path.startsWith("/exam") ? "page" : undefined}>
+              Mock paper
+            </Link>
+            <Link href="/strategy" aria-current={path.startsWith("/strategy") ? "page" : undefined}>
+              Strategy
+            </Link>
+            <Link href="/progress" aria-current={path.startsWith("/progress") ? "page" : undefined}>
+              Progress
+            </Link>
+            {children}
+          </nav>
+        )}
       </div>
     </header>
   );
