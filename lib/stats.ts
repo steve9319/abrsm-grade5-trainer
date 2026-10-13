@@ -75,3 +75,73 @@ export function weakestTopics(stats: TopicStat[], limit = 3): TopicStat[] {
     .sort((a, b) => a.accuracy - b.accuracy || b.attempted - a.attempted)
     .slice(0, limit);
 }
+
+export type MasteryBand = "not-started" | "learning" | "developing" | "secure";
+
+export const MASTERY_LABELS: Record<MasteryBand, string> = {
+  "not-started": "Not started",
+  learning: "Learning",
+  developing: "Developing",
+  secure: "Secure",
+};
+
+/** Not started; Learning under 50%; Developing from 50% until two solid results; Secure at 80% and at least two attempts. */
+export function masteryBand(attempted: number, accuracy: number): MasteryBand {
+  if (attempted <= 0) return "not-started";
+  if (accuracy < 50) return "learning";
+  if (accuracy >= 80 && attempted >= 2) return "secure";
+  return "developing";
+}
+
+export interface ConceptStat {
+  topic: string;
+  topicTitle: string;
+  subtopic: string;
+  title: string;
+  attempted: number;
+  correct: number;
+  total: number;
+  accuracy: number;
+  band: MasteryBand;
+}
+
+export function conceptStats(
+  bank: QuestionSummary[],
+  attempts: Attempt[],
+  titleFor: (topic: string, subtopic: string) => string = (_topic, subtopic) => subtopic,
+): ConceptStat[] {
+  const latest = latestByQuestion(attempts);
+  const groups = new Map<string, QuestionSummary[]>();
+  for (const item of bank) {
+    const subtopic = item.subtopic?.trim() || "general";
+    const key = `${item.topic}/${subtopic}`;
+    const list = groups.get(key) ?? [];
+    list.push(item);
+    groups.set(key, list);
+  }
+
+  return [...groups.entries()]
+    .map(([key, items]) => {
+      const splitAt = key.indexOf("/");
+      const topic = key.slice(0, splitAt);
+      const subtopic = key.slice(splitAt + 1);
+      const answered = items
+        .map((item) => latest.get(item.id))
+        .filter((attempt): attempt is Attempt => Boolean(attempt));
+      const correct = answered.filter((attempt) => attempt.correct).length;
+      const meta = TOPICS.find((item) => item.id === topic);
+      const accuracy = percent(correct, answered.length);
+      return {
+        topic,
+        topicTitle: meta?.title ?? topic,
+        subtopic,
+        title: titleFor(topic, subtopic),
+        attempted: answered.length,
+        correct,
+        total: items.length,
+        accuracy,
+        band: masteryBand(answered.length, accuracy),
+      };
+    })
+    .sort((a, b) => a.topic.localeCompare(b.topic) || a.title.localeCompare(b.title));
+}

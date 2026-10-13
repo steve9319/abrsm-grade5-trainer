@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
+import { CONCEPTS } from "@/lib/lessons";
 import { loadQuestions } from "@/lib/questions.server";
 import { TOPIC_IDS } from "@/lib/types";
 import { validateQuestion } from "@/lib/validate";
@@ -25,6 +26,11 @@ describe("question bank", () => {
     for (const question of questions) {
       assert.equal(ids.has(question.id), false, `duplicate id ${question.id}`);
       ids.add(question.id);
+      assert.match(question.subtopic, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${question.id} needs a subtopic`);
+      assert.ok(
+        CONCEPTS.some((concept) => concept.topic === question.topic && concept.id === question.subtopic),
+        `${question.id} subtopic ${question.subtopic} has no lesson`,
+      );
       assert.ok(question.source.trim());
       assert.ok(question.explanation.trim(), `${question.id} is missing the main explanation`);
       const matches = question.options.filter((option) => option.id === question.correctAnswer);

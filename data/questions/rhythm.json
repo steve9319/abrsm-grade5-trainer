@@ -2,6 +2,7 @@
   {
     "id": "rhythm-01",
     "topic": "rhythm",
+    "subtopic": "compound-time",
     "source": "original",
     "question": "The bar below is in 6/8. What kind of metre is that?",
     "notation": "X:1\nM:6/8\nL:1/8\nK:C\nC D E F G A |",
@@ -34,6 +35,7 @@
   {
     "id": "rhythm-02",
     "topic": "rhythm",
+    "subtopic": "compound-time",
     "source": "original",
     "question": "In 9/8 time, the beat is normally a:",
     "options": [
@@ -64,6 +66,7 @@
   {
     "id": "rhythm-03",
     "topic": "rhythm",
+    "subtopic": "tuplets",
     "source": "original",
     "question": "A triplet of quavers lasts as long as:",
     "options": [
@@ -94,6 +97,7 @@
   {
     "id": "rhythm-04",
     "topic": "rhythm",
+    "subtopic": "tuplets",
     "source": "original",
     "question": "In 6/8, a duplet of quavers occupies the same time as:",
     "options": [
@@ -124,6 +128,7 @@
   {
     "id": "rhythm-05",
     "topic": "rhythm",
+    "subtopic": "irregular-time",
     "source": "original",
     "question": "A bar of 5/8 is grouped 3+2. Which description matches that grouping?",
     "options": [
@@ -154,6 +159,7 @@
   {
     "id": "rhythm-06",
     "topic": "rhythm",
+    "subtopic": "irregular-time",
     "source": "original",
     "question": "Which of these bars can be beamed correctly as quaver groups of 2+2+3?",
     "options": [
@@ -184,6 +190,7 @@
   {
     "id": "rhythm-07",
     "topic": "rhythm",
+    "subtopic": "rests",
     "source": "original",
     "question": "A bar of 7/8 already contains a minim and a quaver. Which rest completes the bar?",
     "options": [
@@ -214,6 +221,7 @@
   {
     "id": "rhythm-08",
     "topic": "rhythm",
+    "subtopic": "rests",
     "source": "original",
     "question": "A completely silent bar of 4/2 is shown with:",
     "options": [

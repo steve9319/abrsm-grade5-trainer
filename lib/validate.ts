@@ -47,6 +47,17 @@ export function validateQuestion(
     );
   }
 
+  const subtopic = typeof value.subtopic === "string" ? value.subtopic.trim() : "";
+  if (!subtopic || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(subtopic)) {
+    issues.push(
+      issue(
+        file,
+        id || undefined,
+        "subtopic is required and must be a slug such as \"cadences\" or \"clarinet-bb\"",
+      ),
+    );
+  }
+
   const source = typeof value.source === "string" ? value.source.trim() : "";
   if (!source) {
     issues.push(issue(file, id || undefined, "source is required, for example \"original\""));
@@ -127,6 +138,31 @@ export function validateQuestion(
         `correctAnswer must match exactly one option id (received ${JSON.stringify(correctAnswer)})`,
       ),
     );
+  }
+
+  if (value.answerCheck !== undefined) {
+    if (!isRecord(value.answerCheck)) {
+      issues.push(issue(file, id || undefined, "answerCheck, when present, must be an object"));
+    } else {
+      const check = value.answerCheck;
+      if (typeof check.agreed !== "boolean") {
+        issues.push(issue(file, id || undefined, "answerCheck.agreed must be true or false"));
+      }
+      if (typeof check.claudeAnswer !== "string" || !check.claudeAnswer.trim()) {
+        issues.push(issue(file, id || undefined, "answerCheck.claudeAnswer must be an option id"));
+      }
+      if (typeof check.model !== "string" || !check.model.trim()) {
+        issues.push(issue(file, id || undefined, "answerCheck.model is required"));
+      }
+      if (typeof check.checkedAt !== "string" || !check.checkedAt.trim()) {
+        issues.push(issue(file, id || undefined, "answerCheck.checkedAt is required"));
+      }
+      if (typeof check.note !== "string" || !check.note.trim()) {
+        issues.push(issue(file, id || undefined, "answerCheck.note is required"));
+      } else if (check.agreed === false && !check.note.toLowerCase().includes("disagreement")) {
+        issues.push(issue(file, id || undefined, "a disagreement must be flagged in answerCheck.note"));
+      }
+    }
   }
 
   return issues;

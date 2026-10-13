@@ -38,9 +38,19 @@ export function parseQuestionDocument(text: string, filename: string): unknown[]
 export function sanitiseQuestion(value: Question): Question {
   const notation = value.notation?.trim();
   const notationAlt = value.notationAlt?.trim();
+  const answerCheck = value.answerCheck
+    ? {
+        checkedAt: value.answerCheck.checkedAt.trim(),
+        model: value.answerCheck.model.trim(),
+        claudeAnswer: value.answerCheck.claudeAnswer.trim(),
+        agreed: value.answerCheck.agreed,
+        note: value.answerCheck.note.trim(),
+      }
+    : undefined;
   return {
     id: value.id.trim(),
     topic: value.topic.trim(),
+    subtopic: value.subtopic.trim(),
     source: value.source.trim(),
     question: value.question.trim(),
     ...(notation ? { notation } : {}),
@@ -52,6 +62,7 @@ export function sanitiseQuestion(value: Question): Question {
     })),
     correctAnswer: value.correctAnswer.trim(),
     explanation: value.explanation.trim(),
+    ...(answerCheck ? { answerCheck } : {}),
   };
 }
 

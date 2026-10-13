@@ -22,7 +22,9 @@ npm run build
 
 `npm test` checks every question file against the schema. `npm run build` is the Next.js production build used on Vercel.
 
-The app stores progress, mock results and any generated explanations in `localStorage` on the device. Nothing is sent to a server unless a question is missing an explanation and `ANTHROPIC_API_KEY` is set.
+The app stores progress, mock results, concept lessons and any generated explanations in `localStorage` on the device. Nothing is sent to a server unless a question is missing an explanation, a weak-spot lesson is requested, or you run `npm run check-answers`, and only when `ANTHROPIC_API_KEY` is set.
+
+The 2021, 2022 and 2023 ABRSM practice-paper books are not in this bank. Their questions, options and score excerpts were not imported. `source` on every shipped question is `original`.
 
 ## Deploying to Vercel
 
@@ -40,7 +42,9 @@ Copy `.env.example` to `.env.local` for the same variables on your machine. Neve
 - **Practise by topic** opens one syllabus area. Choose an option, then check it. The screen shows the correct answer, why it is correct, and why each other option is wrong.
 - **Mixed practice** walks through the whole bank.
 - **Mock paper** is 18 questions (two from each theory topic) and 30 minutes. You can move between questions. Marking waits until you submit, or until the clock runs out. The real Grade 5 theory exam is longer (about two hours); this is a shorter rehearsal.
-- **Progress** keeps the latest result for each question, the weakest topics, and past papers. Clearing it only affects this browser.
+- **Train weak spots** (`/practice/weak`) builds a short drill from the concepts you score lowest, with more questions from the lowest scores. Each concept starts with a short lesson. Without an API key the lesson is the built-in note. With a key, Claude writes one and this browser remembers it.
+- **Pass strategy** (`/strategy`) is the 75-mark, two-hour paper: pass 50, merit 60, distinction 65, where the marks sit, a time split, and a one-hour plan weighted by your weak topics.
+- **Progress** keeps the latest result for each question, mastery by topic and subtopic, the weakest topics, and past papers. Clearing it only affects this browser.
 
 ## Adding questions
 
@@ -64,6 +68,7 @@ Each file in `data/questions` is a JSON array. One question looks like this:
 {
   "id": "intervals-01",
   "topic": "intervals",
+  "subtopic": "naming",
   "source": "original",
   "question": "What is the melodic interval from the first note up to the second?",
   "notation": "X:1\nM:2/4\nL:1/4\nK:C\nC A |",
@@ -83,19 +88,21 @@ Each file in `data/questions` is a JSON array. One question looks like this:
 | --- | --- | --- |
 | `id` | yes | Unique slug, letters, numbers and hyphens. |
 | `topic` | yes | One of `rhythm`, `pitch`, `keys`, `intervals`, `chords`, `transposition`, `terms`, `ornaments`, `context`, `practical`. Add a new id in `lib/topics.ts` before using it. |
-| `source` | yes | `original`, or your own citation such as `ABRSM 2023 Paper A Q3`. |
+| `subtopic` | yes | Slug for the concept, such as `cadences` or `clarinet-bb`. Mastery and weak-spot drills group on this. |
+| `source` | yes | `original`, or your own citation such as `ABRSM 2023 Paper A Q3`. Do not paste the paper. |
 | `question` | yes | The stem. |
 | `notation` | no | [ABC notation](https://abcnotation.com/), rendered in the browser with abcjs. In CSV, write line breaks as `\n`. |
 | `notationAlt` | no | A short description of the staff for screen readers. Do not put the answer in it. |
 | `options` | yes | Two to six objects. Each needs `id`, `text`, and `explanation`. |
 | `correctAnswer` | yes | The `id` of exactly one option. |
-| `explanation` | yes | Why that answer is correct. Leave it blank only in a private draft; the API route can generate a replacement. |
+| `explanation` | yes | Why that answer is correct. Leave it blank only in a private draft; the API route or `npm run check-answers` can fill it. |
+| `answerCheck` | no | Written by `npm run check-answers`. Records whether Claude agreed. A disagreement is flagged and the stored `correctAnswer` is kept. |
 
 `option.explanation` says why that choice is right or wrong. The test fails if any of them is empty, or if `correctAnswer` does not match exactly one option.
 
 ### CSV columns
 
-`id`, `topic`, `source`, `question`, `notation`, `notationAlt`, `correctAnswer`, `explanation`, `optionA`, `explanationA`, `optionB`, `explanationB`, `optionC`, `explanationC`, `optionD`, `explanationD`.
+`id`, `topic`, `subtopic`, `source`, `question`, `notation`, `notationAlt`, `correctAnswer`, `explanation`, `optionA`, `explanationA`, `optionB`, `explanationB`, `optionC`, `explanationC`, `optionD`, `explanationD`.
 
 `optionE` / `explanationE` and `optionF` / `explanationF` are optional. A blank option is skipped. See `data/examples/question.csv`.
 
@@ -106,3 +113,17 @@ JSON may be one question, an array, or `{ "questions": [ ... ] }`. See `data/exa
 `app/api/explain/route.ts` runs on the server. It reads `ANTHROPIC_API_KEY` and calls the Anthropic Messages API. The model defaults to `claude-sonnet-5-5`. Override it with `ANTHROPIC_MODEL`.
 
 The browser calls that route only when a checked question has a blank explanation or a blank option explanation. The reply is cached in `localStorage`. The key never goes to the browser. If the key is missing, or the request fails, the page shows `explanation unavailable` and the rest of the app keeps working.
+
+`POST /api/lesson` uses the same key to write the short lesson at the start of a weak-spot drill. If the key is missing, the drill still runs and shows the built-in lesson for that subtopic.
+
+### Checking answers with Claude
+
+```bash
+npm run check-answers
+npm run check-answers -- --dry-run
+npm run check-answers -- --id intervals-01
+```
+
+The script reads `ANTHROPIC_API_KEY` from the environment, then from `.env` and `.env.local`. It asks Claude for an answer **without** revealing `correctAnswer`. When Claude chooses the same option, any blank explanation is filled and saved in the question file. When Claude chooses a different option, the stored answer is left as it is, `answerCheck.agreed` is `false`, and `answerCheck.note` starts with `Disagreement`. Blank explanations on a disagreement are filled only by a second call that is told the stored answer. Questions that already have `answerCheck` and complete explanations are skipped, so a later run does not regenerate them. `--force` checks them again and still will not replace a stored answer or a written explanation.
+
+If the key is not set, the script changes nothing and prints that the key is missing.

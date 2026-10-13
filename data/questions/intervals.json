@@ -2,6 +2,7 @@
   {
     "id": "intervals-01",
     "topic": "intervals",
+    "subtopic": "naming",
     "source": "original",
     "question": "What is the melodic interval from the first note up to the second?",
     "notation": "X:1\nM:2/4\nL:1/4\nK:C\nC A |",
@@ -34,6 +35,7 @@
   {
     "id": "intervals-02",
     "topic": "intervals",
+    "subtopic": "naming",
     "source": "original",
     "question": "What is the interval from the first note up to the second?",
     "notation": "X:1\nM:2/4\nL:1/4\nK:C\nF B |",
@@ -66,6 +68,7 @@
   {
     "id": "intervals-03",
     "topic": "intervals",
+    "subtopic": "inversion",
     "source": "original",
     "question": "A major 3rd inverts to a:",
     "options": [
@@ -96,6 +99,7 @@
   {
     "id": "intervals-04",
     "topic": "intervals",
+    "subtopic": "compound",
     "source": "original",
     "question": "A major 10th is best described as:",
     "options": [
@@ -126,6 +130,7 @@
   {
     "id": "intervals-05",
     "topic": "intervals",
+    "subtopic": "harmonic-minor",
     "source": "original",
     "question": "In C harmonic minor, the interval from A♭ up to B is:",
     "options": [
@@ -156,6 +161,7 @@
   {
     "id": "intervals-06",
     "topic": "intervals",
+    "subtopic": "inversion",
     "source": "original",
     "question": "Which of these intervals is still perfect after it is inverted?",
     "options": [
@@ -186,6 +192,7 @@
   {
     "id": "intervals-07",
     "topic": "intervals",
+    "subtopic": "naming",
     "source": "original",
     "question": "In D major, the interval from the tonic up to the leading note is a:",
     "options": [

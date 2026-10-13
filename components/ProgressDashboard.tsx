@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { clearProgress, loadProgress } from "@/lib/progress";
-import { overallStats, topicStats, weakestTopics } from "@/lib/stats";
+import { conceptTitle } from "@/lib/lessons";
+import { conceptStats, MASTERY_LABELS, overallStats, topicStats, weakestTopics } from "@/lib/stats";
 import { formatClock } from "@/lib/exam";
 import { topicMeta } from "@/lib/topics";
 import type { ProgressState, QuestionSummary } from "@/lib/types";
@@ -28,7 +29,12 @@ export function ProgressDashboard({ bank }: { bank: QuestionSummary[] }) {
 
   const overall = overallStats(bank, progress.attempts);
   const topics = topicStats(bank, progress.attempts);
+  const concepts = conceptStats(bank, progress.attempts, conceptTitle);
   const weak = weakestTopics(topics, 4);
+  const byTopic = topics.map((topic) => ({
+    ...topic,
+    concepts: concepts.filter((concept) => concept.topic === topic.topic),
+  }));
 
   return (
     <div className="page">
@@ -58,6 +64,52 @@ export function ProgressDashboard({ bank }: { bank: QuestionSummary[] }) {
                 <span>{topic.attempted === 0 ? "—" : `${topic.accuracy}%`}</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="section">
+          <h2>Mastery</h2>
+          <p className="section-intro">
+            Latest answer for each question. Learning is under 50%. Developing is from 50% until you have two results at
+            80% or better. Secure needs at least two attempts and 80%.
+          </p>
+          {byTopic.map((topic) => {
+            const secure = topic.concepts.filter((concept) => concept.band === "secure").length;
+            const learning = topic.concepts.filter((concept) => concept.band === "learning").length;
+            return (
+              <details key={topic.topic} className="concept-group">
+                <summary>
+                  {topic.title}
+                  <span className="muted">
+                    {" "}
+                    · {secure} secure
+                    {learning > 0 ? `, ${learning} learning` : ""}
+                  </span>
+                </summary>
+                <div className="breakdown">
+                  {topic.concepts.map((concept) => (
+                    <div key={concept.subtopic}>
+                      <span>
+                        {concept.title}
+                        <span className="muted">
+                          {" "}
+                          · {concept.attempted === 0 ? "not tried" : `${concept.correct}/${concept.attempted}`}
+                        </span>
+                      </span>
+                      <span className={`band ${concept.band}`}>{MASTERY_LABELS[concept.band]}</span>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            );
+          })}
+          <div className="row-actions">
+            <Link className="btn primary" href="/practice/weak">
+              Train weak spots
+            </Link>
+            <Link className="btn ghost" href="/strategy">
+              Study plan
+            </Link>
           </div>
         </section>
 

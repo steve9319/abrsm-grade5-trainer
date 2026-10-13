@@ -76,6 +76,9 @@ export function QuestionView({
           {!isCorrect && chosen ? (
             <p className="muted">You chose {chosen.id}. {chosen.text}</p>
           ) : null}
+          {question.answerCheck && !question.answerCheck.agreed ? (
+            <p className="disagreement">{question.answerCheck.note}</p>
+          ) : null}
           {usedGenerated ? <p className="generated-note">Generated explanation</p> : null}
           <h3>Why</h3>
           <p>{why}</p>

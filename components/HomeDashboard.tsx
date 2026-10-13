@@ -36,6 +36,9 @@ export function HomeDashboard({ bank }: { bank: QuestionSummary[] }) {
               <a className="btn primary" href="#topics">
                 Practise by topic
               </a>
+              <Link className="btn ghost" href="/practice/weak">
+                Train weak spots
+              </Link>
               <Link className="btn ghost" href="/exam">
                 Start a {EXAM_MINUTES}-minute mock
               </Link>
@@ -102,6 +105,10 @@ export function HomeDashboard({ bank }: { bank: QuestionSummary[] }) {
 
         <section className="section">
           <h2>Needs work</h2>
+          <p className="section-intro">
+            <Link href="/strategy">Pass strategy</Link> turns these results into an hour of study.{" "}
+            <Link href="/progress">Mastery</Link> splits them by subtopic.
+          </p>
           {weak.length === 0 ? (
             <p className="section-intro">
               Answer a few questions and the topics you miss most often will collect here.

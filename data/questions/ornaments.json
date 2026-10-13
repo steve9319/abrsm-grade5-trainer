@@ -2,6 +2,7 @@
   {
     "id": "ornaments-01",
     "topic": "ornaments",
+    "subtopic": "trill",
     "source": "original",
     "question": "Which description matches a trill?",
     "options": [
@@ -32,6 +33,7 @@
   {
     "id": "ornaments-02",
     "topic": "ornaments",
+    "subtopic": "mordent",
     "source": "original",
     "question": "The quick figure at the start of the bar (G–F–G) matches which ornament on G? Ignore the rest.",
     "notation": "X:1\nM:2/4\nL:1/16\nK:C\nG F G2 z4 |",
@@ -64,6 +66,7 @@
   {
     "id": "ornaments-03",
     "topic": "ornaments",
+    "subtopic": "turn",
     "source": "original",
     "question": "A turn on D is written out as:",
     "options": [
@@ -94,6 +97,7 @@
   {
     "id": "ornaments-04",
     "topic": "ornaments",
+    "subtopic": "grace-notes",
     "source": "original",
     "question": "An appoggiatura before an undotted crotchet normally takes:",
     "options": [
@@ -124,6 +128,7 @@
   {
     "id": "ornaments-05",
     "topic": "ornaments",
+    "subtopic": "grace-notes",
     "source": "original",
     "question": "An acciaccatura is printed as:",
     "options": [

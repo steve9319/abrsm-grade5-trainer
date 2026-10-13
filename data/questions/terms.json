@@ -2,6 +2,7 @@
   {
     "id": "terms-01",
     "topic": "terms",
+    "subtopic": "italian",
     "source": "original",
     "question": "Sotto voce means:",
     "options": [
@@ -32,6 +33,7 @@
   {
     "id": "terms-02",
     "topic": "terms",
+    "subtopic": "italian",
     "source": "original",
     "question": "Stringendo asks the player to:",
     "options": [
@@ -62,6 +64,7 @@
   {
     "id": "terms-03",
     "topic": "terms",
+    "subtopic": "german",
     "source": "original",
     "question": "The German word langsam means:",
     "options": [
@@ -92,6 +95,7 @@
   {
     "id": "terms-04",
     "topic": "terms",
+    "subtopic": "french",
     "source": "original",
     "question": "The French direction cédez means:",
     "options": [
@@ -122,6 +126,7 @@
   {
     "id": "terms-05",
     "topic": "terms",
+    "subtopic": "german",
     "source": "original",
     "question": "Mässig means:",
     "options": [
@@ -152,6 +157,7 @@
   {
     "id": "terms-06",
     "topic": "terms",
+    "subtopic": "italian",
     "source": "original",
     "question": "Dolente means:",
     "options": [
@@ -182,6 +188,7 @@
   {
     "id": "terms-07",
     "topic": "terms",
+    "subtopic": "french",
     "source": "original",
     "question": "Légèrement means:",
     "options": [

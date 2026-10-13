@@ -2,6 +2,7 @@
   {
     "id": "pitch-01",
     "topic": "pitch",
+    "subtopic": "alto-clef",
     "source": "original",
     "question": "What is the letter name of this note?",
     "notation": "X:1\nM:4/4\nL:1/4\nK:C clef=alto\nC4 |",
@@ -34,6 +35,7 @@
   {
     "id": "pitch-02",
     "topic": "pitch",
+    "subtopic": "tenor-clef",
     "source": "original",
     "question": "Which clef is this, and what is the note on the fourth line?",
     "notation": "X:1\nM:4/4\nL:1/4\nK:C clef=tenor\nC4 |",
@@ -66,6 +68,7 @@
   {
     "id": "pitch-03",
     "topic": "pitch",
+    "subtopic": "bass-clef",
     "source": "original",
     "question": "What is the letter name of the note on the top line of the bass staff?",
     "notation": "X:1\nM:4/4\nL:1/4\nK:C clef=bass\nA,4 |",
@@ -98,6 +101,7 @@
   {
     "id": "pitch-04",
     "topic": "pitch",
+    "subtopic": "ledger-lines",
     "source": "original",
     "question": "What is the letter name of this note?",
     "notation": "X:1\nM:4/4\nL:1/4\nK:C\nc'4 |",
@@ -130,6 +134,7 @@
   {
     "id": "pitch-05",
     "topic": "pitch",
+    "subtopic": "alto-clef",
     "source": "original",
     "question": "What is the letter name of the note on the top line of the alto staff?",
     "notation": "X:1\nM:4/4\nL:1/4\nK:C clef=alto\nG4 |",
@@ -162,6 +167,7 @@
   {
     "id": "pitch-06",
     "topic": "pitch",
+    "subtopic": "bass-clef",
     "source": "original",
     "question": "Middle C in the treble clef is moved down an octave and written in the bass clef. Where does it sit?",
     "options": [

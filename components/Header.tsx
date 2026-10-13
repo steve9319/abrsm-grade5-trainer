@@ -31,8 +31,14 @@ export function Header() {
           <Link href="/#topics" aria-current={path === "/" ? "page" : undefined}>
             Practise
           </Link>
+          <Link href="/practice/weak" aria-current={path.startsWith("/practice/weak") ? "page" : undefined}>
+            Weak spots
+          </Link>
           <Link href="/exam" aria-current={path.startsWith("/exam") ? "page" : undefined}>
             Mock paper
+          </Link>
+          <Link href="/strategy" aria-current={path.startsWith("/strategy") ? "page" : undefined}>
+            Strategy
           </Link>
           <Link href="/progress" aria-current={path.startsWith("/progress") ? "page" : undefined}>
             Progress

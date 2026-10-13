@@ -2,6 +2,7 @@
   {
     "id": "keys-01",
     "topic": "keys",
+    "subtopic": "key-signatures",
     "source": "original",
     "question": "Which scale is printed here?",
     "notation": "X:1\nM:4/4\nL:1/4\nK:F#\nF G A B | c d e f |",
@@ -34,6 +35,7 @@
   {
     "id": "keys-02",
     "topic": "keys",
+    "subtopic": "relative-keys",
     "source": "original",
     "question": "The relative minor of D♭ major is:",
     "options": [
@@ -64,6 +66,7 @@
   {
     "id": "keys-03",
     "topic": "keys",
+    "subtopic": "technical-names",
     "source": "original",
     "question": "In A major, the mediant is:",
     "options": [
@@ -94,6 +97,7 @@
   {
     "id": "keys-04",
     "topic": "keys",
+    "subtopic": "technical-names",
     "source": "original",
     "question": "The leading note of E♭ minor is:",
     "options": [
@@ -124,6 +128,7 @@
   {
     "id": "keys-05",
     "topic": "keys",
+    "subtopic": "minor-scales",
     "source": "original",
     "question": "The scale below is the ascending form of:",
     "notation": "X:1\nM:4/4\nL:1/4\nK:Emin\nE F G A | B ^c ^d e |",
@@ -156,6 +161,7 @@
   {
     "id": "keys-06",
     "topic": "keys",
+    "subtopic": "minor-scales",
     "source": "original",
     "question": "Coming down, the melodic minor scale uses the same notes as:",
     "options": [
@@ -186,6 +192,7 @@
   {
     "id": "keys-07",
     "topic": "keys",
+    "subtopic": "key-signatures",
     "source": "original",
     "question": "F♯ major is the enharmonic equivalent of:",
     "options": [
@@ -216,6 +223,7 @@
   {
     "id": "keys-08",
     "topic": "keys",
+    "subtopic": "technical-names",
     "source": "original",
     "question": "The submediant of B♭ major is:",
     "options": [

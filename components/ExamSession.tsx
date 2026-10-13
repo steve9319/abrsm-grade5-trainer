@@ -122,6 +122,7 @@ export function ExamSession({ questions }: { questions: Question[] }) {
       scored.rows.map((row) => ({
         questionId: row.question.id,
         topic: row.question.topic,
+        subtopic: row.question.subtopic,
         correct: row.correct,
         chosen: row.chosen ?? "",
         mode: "exam" as const,

@@ -2,6 +2,7 @@
   {
     "id": "chords-01",
     "topic": "chords",
+    "subtopic": "triads",
     "source": "original",
     "question": "The dominant triad of G major is:",
     "options": [
@@ -32,6 +33,7 @@
   {
     "id": "chords-02",
     "topic": "chords",
+    "subtopic": "inversions",
     "source": "original",
     "question": "Which figured-bass sign shows a triad in first inversion?",
     "options": [
@@ -62,6 +64,7 @@
   {
     "id": "chords-03",
     "topic": "chords",
+    "subtopic": "cadences",
     "source": "original",
     "question": "These two chords are in C major. Which cadence do they form?",
     "notation": "X:1\nM:3/4\nL:1/8\nK:C\n[GBD]3 [CEG]3 |",
@@ -94,6 +97,7 @@
   {
     "id": "chords-04",
     "topic": "chords",
+    "subtopic": "cadences",
     "source": "original",
     "question": "An imperfect cadence ends on chord:",
     "options": [
@@ -124,6 +128,7 @@
   {
     "id": "chords-05",
     "topic": "chords",
+    "subtopic": "cadences",
     "source": "original",
     "question": "A plagal cadence is the progression:",
     "options": [
@@ -154,6 +159,7 @@
   {
     "id": "chords-06",
     "topic": "chords",
+    "subtopic": "minor-key-chords",
     "source": "original",
     "question": "Chord ii in A minor is:",
     "options": [
@@ -184,6 +190,7 @@
   {
     "id": "chords-07",
     "topic": "chords",
+    "subtopic": "minor-key-chords",
     "source": "original",
     "question": "In D minor, chord V is:",
     "options": [
@@ -214,6 +221,7 @@
   {
     "id": "chords-08",
     "topic": "chords",
+    "subtopic": "inversions",
     "source": "original",
     "question": "A 6/4 chord moving to a 5/3 chord, both over the same dominant bass note, is the progression:",
     "options": [

@@ -1,4 +1,4 @@
-import type { Attempt, ExamRecord, ExplanationCacheEntry, ProgressState } from "@/lib/types";
+import type { Attempt, ExamRecord, ExplanationCacheEntry, LessonCacheEntry, ProgressState } from "@/lib/types";
 
 export const PROGRESS_KEY = "abrsm-g5-progress-v1";
 
@@ -6,7 +6,12 @@ export const EMPTY_PROGRESS: ProgressState = {
   attempts: [],
   exams: [],
   explanationCache: {},
+  lessonCache: {},
 };
+
+export function lessonCacheKey(topic: string, subtopic: string): string {
+  return `${topic}/${subtopic}`;
+}
 
 function storage(): Storage | null {
   if (typeof window === "undefined") return null;
@@ -19,10 +24,10 @@ function storage(): Storage | null {
 
 export function loadProgress(): ProgressState {
   const store = storage();
-  if (!store) return { ...EMPTY_PROGRESS, explanationCache: {} };
+  if (!store) return { ...EMPTY_PROGRESS, explanationCache: {}, lessonCache: {} };
   try {
     const raw = store.getItem(PROGRESS_KEY);
-    if (!raw) return { ...EMPTY_PROGRESS, explanationCache: {} };
+    if (!raw) return { ...EMPTY_PROGRESS, explanationCache: {}, lessonCache: {} };
     const parsed = JSON.parse(raw) as Partial<ProgressState>;
     return {
       attempts: Array.isArray(parsed.attempts) ? parsed.attempts : [],
@@ -31,9 +36,11 @@ export function loadProgress(): ProgressState {
         parsed.explanationCache && typeof parsed.explanationCache === "object"
           ? parsed.explanationCache
           : {},
+      lessonCache:
+        parsed.lessonCache && typeof parsed.lessonCache === "object" ? parsed.lessonCache : {},
     };
   } catch {
-    return { ...EMPTY_PROGRESS, explanationCache: {} };
+    return { ...EMPTY_PROGRESS, explanationCache: {}, lessonCache: {} };
   }
 }
 
@@ -62,6 +69,13 @@ export function recordExam(exam: ExamRecord, attempts: Attempt[]): ProgressState
 export function cacheExplanation(questionId: string, entry: ExplanationCacheEntry): ProgressState {
   const progress = loadProgress();
   progress.explanationCache = { ...progress.explanationCache, [questionId]: entry };
+  saveProgress(progress);
+  return progress;
+}
+
+export function cacheLesson(topic: string, subtopic: string, entry: LessonCacheEntry): ProgressState {
+  const progress = loadProgress();
+  progress.lessonCache = { ...progress.lessonCache, [lessonCacheKey(topic, subtopic)]: entry };
   saveProgress(progress);
   return progress;
 }

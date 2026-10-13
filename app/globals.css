@@ -367,6 +367,58 @@ button, input { font: inherit; }
 .generated-note { font-size: 0.82rem; color: var(--gold); margin: 0; }
 .source-line { margin: 0.8rem 0 0.4rem; color: var(--ink-soft); font-size: 0.82rem; }
 
+.disagreement {
+  margin: 0.6rem 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  background: #fff6ea;
+  border: 1px solid #efd7b4;
+}
+
+.lesson-card { padding: 1.2rem 1.25rem 1rem; }
+.lesson-card h2 { margin: 0.2rem 0 0.6rem; }
+.lesson-card p { margin: 0.55rem 0; }
+
+.mark-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.mark-table th, .mark-table td {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.mark-table th:last-child, .mark-table td:last-child { text-align: right; }
+.mark-table tr:last-child td { border-bottom: 0; }
+
+.tip-card { padding: 1rem 1.1rem 0.8rem; margin: 0 0 0.75rem; }
+.tip-card h3 { margin: 0 0 0.4rem; font-size: 1.25rem; }
+.tip-list { margin: 0.3rem 0 0.6rem; padding-left: 1.15rem; }
+.tip-list li { margin: 0.25rem 0; }
+
+.concept-group {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.75rem 0.95rem;
+  margin: 0 0 0.55rem;
+}
+.concept-group summary { cursor: pointer; font-weight: 600; }
+.band {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.band.learning { color: var(--crimson); }
+.band.developing { color: var(--gold); }
+.band.secure { color: var(--correct); }
+.band.not-started { color: var(--ink-soft); }
+
 .row-actions {
   display: flex;
   flex-wrap: wrap;
@@ -447,7 +499,8 @@ button, input { font: inherit; }
 @media (max-width: 800px) {
   .hero, .topic-grid { grid-template-columns: 1fr; }
   .header-inner { align-items: flex-start; padding: 0.7rem 0; flex-wrap: wrap; }
-  :root { --header: 6.4rem; }
-  .site-header nav { width: 100%; }
+  :root { --header: 7.6rem; }
+  .site-header nav { width: 100%; flex-wrap: wrap; }
+  .site-header nav a { padding: 0.4rem 0.65rem; }
   .exam-bar { top: var(--header); }
 }

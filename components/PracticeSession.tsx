@@ -39,6 +39,7 @@ export function PracticeSession({
     recordAttempt({
       questionId: question.id,
       topic: question.topic,
+      subtopic: question.subtopic,
       correct,
       chosen: selected,
       mode: "practice",
@@ -71,7 +72,11 @@ export function PracticeSession({
   if (done) {
     const correctCount = Object.values(session).filter(Boolean).length;
     const total = Object.keys(session).length;
-    const bank: QuestionSummary[] = questions.map((item) => ({ id: item.id, topic: item.topic }));
+    const bank: QuestionSummary[] = questions.map((item) => ({
+      id: item.id,
+      topic: item.topic,
+      subtopic: item.subtopic,
+    }));
     const weak = weakestTopics(topicStats(bank, loadProgress().attempts));
     return (
       <div className="page">

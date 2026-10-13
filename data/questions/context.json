@@ -2,6 +2,7 @@
   {
     "id": "context-01",
     "topic": "context",
+    "subtopic": "ensembles",
     "source": "original",
     "question": "A string quartet is made up of:",
     "options": [
@@ -32,6 +33,7 @@
   {
     "id": "context-02",
     "topic": "context",
+    "subtopic": "clefs-and-instruments",
     "source": "original",
     "question": "Which instrument normally reads the alto clef?",
     "options": [
@@ -62,6 +64,7 @@
   {
     "id": "context-03",
     "topic": "context",
+    "subtopic": "sound-production",
     "source": "original",
     "question": "Brass instruments produce their sound when:",
     "options": [
@@ -92,6 +95,7 @@
   {
     "id": "context-04",
     "topic": "context",
+    "subtopic": "periods",
     "source": "original",
     "question": "Which group of composers is studied with the Classical period?",
     "options": [
@@ -122,6 +126,7 @@
   {
     "id": "context-05",
     "topic": "context",
+    "subtopic": "texture",
     "source": "original",
     "question": "A melody with a chordal accompaniment is called:",
     "options": [
@@ -152,6 +157,7 @@
   {
     "id": "context-06",
     "topic": "context",
+    "subtopic": "ensembles",
     "source": "original",
     "question": "The standard woodwind quintet consists of:",
     "options": [
@@ -182,6 +188,7 @@
   {
     "id": "context-07",
     "topic": "context",
+    "subtopic": "voices",
     "source": "original",
     "question": "In a modern SATB score the tenor part is often written in the treble clef. Those notes then sound:",
     "options": [

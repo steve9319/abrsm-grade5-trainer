@@ -69,6 +69,7 @@ export function questionFromCsvRow(row: Record<string, string>): Question {
   return {
     id: (row.id ?? "").trim(),
     topic: (row.topic ?? "").trim(),
+    subtopic: (row.subtopic ?? "").trim(),
     source: (row.source ?? "").trim(),
     question: (row.question ?? "").trim(),
     ...(notation ? { notation } : {}),

@@ -3,6 +3,7 @@
     {
       "id": "example-interval-01",
       "topic": "intervals",
+      "subtopic": "naming",
       "source": "original",
       "question": "The interval from G up to D is a:",
       "options": [

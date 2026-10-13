@@ -2,6 +2,7 @@
   {
     "id": "practical-01",
     "topic": "practical",
+    "subtopic": "aural-cadences",
     "source": "original",
     "question": "In the ABRSM Grade 5 aural tests, which two cadences are you asked to recognise?",
     "options": [
@@ -32,6 +33,7 @@
   {
     "id": "practical-02",
     "topic": "practical",
+    "subtopic": "modulation",
     "source": "original",
     "question": "A Grade 5 aural passage in D major modulates to the dominant. The new key is:",
     "options": [
@@ -62,6 +64,7 @@
   {
     "id": "practical-03",
     "topic": "practical",
+    "subtopic": "modulation",
     "source": "original",
     "question": "A passage in E♭ major modulates to the relative minor. The new key is:",
     "options": [
@@ -92,6 +95,7 @@
   {
     "id": "practical-04",
     "topic": "practical",
+    "subtopic": "sight-reading",
     "source": "original",
     "question": "You have half a minute to look at a Grade 5 piano sight-reading test. Which set of things is worth checking before you play?",
     "options": [
@@ -122,6 +126,7 @@
   {
     "id": "practical-05",
     "topic": "practical",
+    "subtopic": "sight-reading",
     "source": "original",
     "question": "ABRSM Grade 5 piano sight-reading uses key signatures of up to:",
     "options": [

@@ -2,6 +2,7 @@
   {
     "id": "transposition-01",
     "topic": "transposition",
+    "subtopic": "by-interval",
     "source": "original",
     "question": "A melody in F major is transposed up a major 2nd. The new key is:",
     "options": [
@@ -32,6 +33,7 @@
   {
     "id": "transposition-02",
     "topic": "transposition",
+    "subtopic": "clarinet-bb",
     "source": "original",
     "question": "This opening is written for clarinet in B♭, which sounds a major 2nd lower than written. What is the concert pitch of the first note?",
     "notation": "X:1\nM:3/4\nL:1/4\nK:G\nG B d |",
@@ -64,6 +66,7 @@
   {
     "id": "transposition-03",
     "topic": "transposition",
+    "subtopic": "horn-f",
     "source": "original",
     "question": "A horn in F is to sound the concert pitch C. Parts for this horn are written a perfect 5th higher than they sound. Which note do you write?",
     "options": [
@@ -94,6 +97,7 @@
   {
     "id": "transposition-04",
     "topic": "transposition",
+    "subtopic": "clarinet-a",
     "source": "original",
     "question": "The clarinet in A sounds a minor 3rd lower than written. Written C sounds as:",
     "options": [
@@ -124,6 +128,7 @@
   {
     "id": "transposition-05",
     "topic": "transposition",
+    "subtopic": "octave-clefs",
     "source": "original",
     "question": "The G on the second line of the treble clef is rewritten an octave lower in the bass clef. Where is it now?",
     "options": [
@@ -154,6 +159,7 @@
   {
     "id": "transposition-06",
     "topic": "transposition",
+    "subtopic": "clarinet-bb",
     "source": "original",
     "question": "A concert-pitch melody is in G major. It is written for clarinet in B♭ a major 2nd higher than it sounds, so that it will sound in G. The written key is:",
     "options": [
