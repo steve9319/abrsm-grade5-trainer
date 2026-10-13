@@ -71,7 +71,7 @@ export function HomeDashboard({
               <p className="stat-value">{progress ? progress.exams.length : "—"}</p>
               <p className="stat-note">
                 {examCount > 0
-                  ? `${examCount} questions in the shape of the theory paper, ${EXAM_MINUTES} minutes.`
+                  ? `${examCount} ${examCount === 1 ? "question" : "questions"} in the shape of the theory paper, ${EXAM_MINUTES} minutes.`
                   : "No questions loaded."}
               </p>
             </div>
@@ -105,7 +105,7 @@ export function HomeDashboard({
                     </h3>
                     <p>{topic.blurb}</p>
                     <span className="topic-meta">
-                      {stat ? `${stat.total} questions` : "0 questions"}
+                      {stat ? `${stat.total} ${stat.total === 1 ? "question" : "questions"}` : "0 questions"}
                       {stat && stat.attempted > 0 ? ` · ${stat.correct}/${stat.attempted} correct` : ""}
                     </span>
                     {stat && stat.attempted > 0 ? (
