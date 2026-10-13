@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: "%s · Grade 5 Theory",
   },
   description:
-    "Practise ABRSM Grade 5 music theory with original questions, instant explanations, and a timed mock paper for piano students.",
+    "Practise ABRSM Grade 5 music theory from your own papers, with instant explanations and a timed mock.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -32,8 +32,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="site-footer">
           <p>
             Unofficial study tool for the ABRSM Grade 5 Music Theory syllabus. Not affiliated with
-            ABRSM. The questions shipped in this bank are original. Do not replace them, in a public
-            repository, with verbatim text from exam papers.
+            ABRSM. No past-paper questions are stored in this repository. Concept lessons and the
+            strategy notes are original.
           </p>
         </footer>
       </body>

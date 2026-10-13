@@ -1,8 +1,10 @@
+import path from "path";
 import { loadQuestions } from "@/lib/questions.server";
 import { TOPIC_IDS } from "@/lib/types";
 
 try {
-  const questions = loadQuestions();
+  const questions = loadQuestions(path.join(process.cwd(), "tests", "fixtures", "questions"));
+  console.log("Schema fixture (the app does not ship these questions):");
   const counts = new Map<string, number>();
   for (const question of questions) {
     counts.set(question.topic, (counts.get(question.topic) ?? 0) + 1);

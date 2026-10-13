@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ConceptLesson } from "@/components/ConceptLesson";
+import { EmptyBank } from "@/components/EmptyBank";
 import { QuestionView } from "@/components/QuestionView";
 import { useExplanation } from "@/components/useExplanation";
 import { loadProgress, recordAttempt } from "@/lib/progress";
@@ -71,7 +72,7 @@ export function WeakSession({ questions }: { questions: Question[] }) {
       <div className="page">
         <div className="narrow">
           <h1>Train weak spots</h1>
-          <p className="empty">There are no questions to drill yet.</p>
+          <EmptyBank detail="No questions loaded with a stored answer. A draft can still be opened in topic practice. The drill starts once an answer is stored." />
           <Link className="btn ghost" href="/">
             Back to topics
           </Link>

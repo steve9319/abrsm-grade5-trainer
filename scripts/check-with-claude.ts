@@ -1,7 +1,8 @@
+import fs from "fs";
 import path from "path";
 import { runAnswerCheck } from "@/lib/answer-check";
 import { loadDotEnv } from "@/lib/env";
-import { QUESTIONS_DIR } from "@/lib/questions.server";
+import { privateBankDir } from "@/lib/private-bank";
 
 function flagValue(name: string): string | undefined {
   const index = process.argv.indexOf(name);
@@ -11,10 +12,15 @@ function flagValue(name: string): string | undefined {
 
 async function main() {
   loadDotEnv(process.cwd(), process.env);
+  const questionsDir = privateBankDir();
+  if (!fs.existsSync(questionsDir)) {
+    console.log(`Private bank folder not found (${questionsDir}). Nothing was checked.`);
+    process.exit(0);
+  }
   const id = flagValue("--id");
   const result = await runAnswerCheck({
     env: process.env,
-    questionsDir: QUESTIONS_DIR,
+    questionsDir,
     dryRun: process.argv.includes("--dry-run"),
     force: process.argv.includes("--force"),
     ids: id ? [id] : undefined,

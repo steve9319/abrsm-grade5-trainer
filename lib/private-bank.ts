@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import { loadQuestions } from "@/lib/questions.server";
 import type { Question } from "@/lib/types";
 import { validateQuestion } from "@/lib/validate";
 
@@ -33,18 +32,11 @@ export function loadPrivateQuestions(dir = privateBankDir()): Question[] {
   return questions;
 }
 
-/** Public bank plus every valid question in the private folder. Private ids never replace a public id. */
-export function loadAllQuestions(dirs?: { publicDir?: string; privateDir?: string }): Question[] {
-  const published = dirs?.publicDir ? loadQuestions(dirs.publicDir) : loadQuestions();
-  const personal = loadPrivateQuestions(dirs?.privateDir ?? privateBankDir());
-  const seen = new Set(published.map((question) => question.id));
-  const merged = [...published];
-  for (const question of personal) {
-    if (seen.has(question.id)) continue;
-    merged.push(question);
-    seen.add(question.id);
-  }
-  return merged.sort((a, b) => a.topic.localeCompare(b.topic) || a.id.localeCompare(b.id));
+/** The practice room serves only the private folder. A missing folder is an empty bank. */
+export function loadAllQuestions(dirs?: { privateDir?: string }): Question[] {
+  return loadPrivateQuestions(dirs?.privateDir ?? privateBankDir()).sort(
+    (a, b) => a.topic.localeCompare(b.topic) || a.id.localeCompare(b.id),
+  );
 }
 
 export function hasStoredAnswer(question: Question): boolean {

@@ -2,7 +2,7 @@
 
 An unofficial practice room for the ABRSM Grade 5 Music Theory paper, built for piano students who need the written exam before Grade 6 practical. Questions cover rhythm and time, pitch and clefs, keys and scales up to six sharps or flats, intervals, chords and cadences, transposition (including instruments in B♭, A and F), Italian, French and German terms, ornaments, and music in context. A short extra set covers Grade 5 aural and sight-reading ideas. That set is for the practical exam, so the timed mock leaves it out.
 
-This project is not affiliated with ABRSM. The questions in `data/questions` are original, written in the style of the paper. Do not commit verbatim text from ABRSM or other publishers' papers to a public repository. If you own a paper and want a private reminder of where an idea came from, put a citation in `source` (for example `ABRSM 2023 Paper A Q3`) and write the question in your own words.
+This project is not affiliated with ABRSM. The app does not ship practice questions. It reads only the private folder on your computer (`PRIVATE_BANK_DIR`, default `./private-bank/`). Do not commit paper text, scans, or MinerU output. Concept lessons and the pass-strategy notes are original and stay in the repository.
 
 ## Local development
 
@@ -20,11 +20,11 @@ npm test
 npm run build
 ```
 
-`npm test` checks every question file against the schema. `npm run build` is the Next.js production build used on Vercel.
+`npm test` checks the question schema against a small invented fixture. `npm run build` is the Next.js production build used on Vercel.
 
 The app stores progress, mock results, concept lessons and any generated explanations in `localStorage` on the device. Nothing is sent to a server unless a question is missing an explanation, a weak-spot lesson is requested, or you run `npm run check-answers`, and only when `ANTHROPIC_API_KEY` is set.
 
-The 2021, 2022 and 2023 ABRSM practice-paper books are not in this bank. Their questions, options and score excerpts were not imported. `source` on every shipped question is `original`.
+The 2021, 2022 and 2023 ABRSM practice-paper books are not in this repository. If the private folder is empty, the home page, topic practice, the mock and weak-spot drills say **No questions loaded.**
 
 ## Deploying to Vercel
 
@@ -68,14 +68,14 @@ The header shows **Sign out** once you are inside the practice room.
 
 - **Practise by topic** opens one syllabus area. Choose an option, then check it. The screen shows the correct answer, why it is correct, and why each other option is wrong.
 - **Mixed practice** walks through the whole bank.
-- **Mock paper** is 18 questions (two from each theory topic) and 30 minutes. You can move between questions. Marking waits until you submit, or until the clock runs out. The real Grade 5 theory exam is longer (about two hours); this is a shorter rehearsal.
+- **Mock paper** draws a paper-shaped set from the private bank and gives you 30 minutes. A 10-mark section contributes up to two questions, and Keys and scales (15 marks) up to three. Pitch is grouped with transposition, and terms with ornaments, matching the theory paper. Sections with nothing loaded are skipped. The practical set stays out of the mock. Marking waits until you submit, or until the clock runs out. The real exam is about two hours; this is a shorter rehearsal.
 - **Train weak spots** (`/practice/weak`) builds a short drill from the concepts you score lowest, with more questions from the lowest scores. Each concept starts with a short lesson. Without an API key the lesson is the built-in note. With a key, Claude writes one and this browser remembers it.
 - **Pass strategy** (`/strategy`) is the 75-mark, two-hour paper: pass 50, merit 60, distinction 65, where the marks sit, a time split, and a one-hour plan weighted by your weak topics.
 - **Progress** keeps the latest result for each question, mastery by topic and subtopic, the weakest topics, and past papers. Clearing it only affects this browser.
 
 ## Adding questions
 
-Drop a JSON file in `data/questions`, or merge a CSV or JSON file with the importer:
+The live bank is the private folder. MinerU import is the usual path (below). A CSV or JSON file you are allowed to store can also be merged there:
 
 ```bash
 npm run import-questions -- data/examples/question.json --dry-run
@@ -83,13 +83,13 @@ npm run import-questions -- data/examples/question.csv
 npm run import-questions -- path/to/more.json --replace
 ```
 
-New ids are appended to `data/questions/imported.json`. `--replace` overwrites an id that is already in the bank. `--allow-missing-explanations` accepts drafts with blank explanations so the app can ask Claude to fill them in; `npm test` still fails until every option is explained.
+New ids are appended to `imported.json` inside `PRIVATE_BANK_DIR`. `--replace` overwrites an id that is already there. `--allow-missing-explanations` accepts drafts with blank explanations. Do not commit that folder.
 
-Then run `npm test` and `npm run validate`.
+`npm test` validates `tests/fixtures/questions`, an invented fixture. `npm run validate` checks the same fixture.
 
 ### Schema
 
-Each file in `data/questions` is a JSON array. One question looks like this:
+A question file is a JSON array. One question looks like this:
 
 ```json
 {
@@ -144,13 +144,13 @@ npm run import-mineru -- /path/to/mineru-folder --year 2024 --paper A
 npm run check-private
 ```
 
-`import-mineru` reads the MinerU folder (`*_content_list.json`, and the markdown file when that list has no numbered questions, plus the `images` folder). It groups blocks by printed numbers such as `2.1`, keeps the options, the mark count, any figure, and a handwritten `Answer:` line when MinerU captured one. It writes JSON into `PRIVATE_BANK_DIR`, which defaults to `./private-bank/`. That folder is in `.gitignore`. Do not copy it into `data/questions`, and do not commit it.
+`import-mineru` reads the MinerU folder (`*_content_list.json`, and the markdown file when that list has no numbered questions, plus the `images` folder). It groups blocks by printed numbers such as `2.1`, keeps the options, the mark count, any figure, and a handwritten `Answer:` line when MinerU captured one. It writes JSON into `PRIVATE_BANK_DIR`, which defaults to `./private-bank/`. That folder is in `.gitignore`. Do not commit it. The app does not read any other question folder.
 
 The same folder receives `import-report.json`. A question is listed there when options are missing, notation or a figure could not be read, or the OCR looks garbled. Questions with fewer than two options are reported and not added to the bank. Running the import again on the same paper refreshes the extract and keeps any answer, explanations, and Claude cache already stored for that question.
 
 `check-private` asks Claude (`claude-fable-5-1`, or `ANTHROPIC_MODEL`) for an answer only when `correctAnswer` is empty. It writes that answer, and an explanation of every option, back into the private JSON. A later run skips questions that already have an answer and explanations. If `studentAnswer` differs from Claude, `privateAnswer.studentDisagrees` is true and the note says the handwritten answer differs. The handwritten line is not treated as the key.
 
-Refresh the app. Private questions are tagged **My papers** and appear in topic practice. Once an answer is stored they also go into the mock paper and weak-spot drills. A score excerpt is served from the private folder by `/api/private-image` and is not copied into `public/`.
+Refresh the app. Questions are tagged **My papers**. Topic counts on the home page come from this folder. Topic practice includes drafts. Once an answer is stored, the question also goes into the mock paper and weak-spot drills. A score excerpt is served from the private folder by `/api/private-image` and is not copied into `public/`. An empty folder shows **No questions loaded.** Concept lessons and the strategy page still open.
 
 Without `ANTHROPIC_API_KEY`, `check-private` changes nothing. A private question that still has no answer can be opened in topic practice and shows `explanation unavailable`.
 
@@ -169,9 +169,9 @@ The browser calls that route only when a checked question has a blank explanatio
 ```bash
 npm run check-answers
 npm run check-answers -- --dry-run
-npm run check-answers -- --id intervals-01
+npm run check-answers -- --id private-2024-a-1-1
 ```
 
-The script reads `ANTHROPIC_API_KEY` from the environment, then from `.env` and `.env.local`. It asks Claude for an answer **without** revealing `correctAnswer`. When Claude chooses the same option, any blank explanation is filled and saved in the question file. When Claude chooses a different option, the stored answer is left as it is, `answerCheck.agreed` is `false`, and `answerCheck.note` starts with `Disagreement`. Blank explanations on a disagreement are filled only by a second call that is told the stored answer. Questions that already have `answerCheck` and complete explanations are skipped, so a later run does not regenerate them. `--force` checks them again and still will not replace a stored answer or a written explanation.
+The script reads the private folder. It asks Claude for an answer **without** revealing `correctAnswer`. When Claude chooses the same option, any blank explanation is filled and saved in the private JSON. When Claude chooses a different option, the stored answer is left as it is, `answerCheck.agreed` is `false`, and `answerCheck.note` starts with `Disagreement`. Blank explanations on a disagreement are filled only by a second call that is told the stored answer. Questions that already have `answerCheck` and complete explanations are skipped, so a later run does not regenerate them. `--force` checks them again and still will not replace a stored answer or a written explanation. Use `npm run check-private` when the question has no stored answer yet.
 
 If the key is not set, the script changes nothing and prints that the key is missing.

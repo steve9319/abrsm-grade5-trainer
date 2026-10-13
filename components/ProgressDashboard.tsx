@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { EmptyBank } from "@/components/EmptyBank";
 import { clearProgress, loadProgress } from "@/lib/progress";
 import { conceptTitle } from "@/lib/lessons";
 import { conceptStats, MASTERY_LABELS, overallStats, topicStats, weakestTopics } from "@/lib/stats";
@@ -41,6 +42,7 @@ export function ProgressDashboard({ bank }: { bank: QuestionSummary[] }) {
       <div className="narrow">
         <p className="kicker">This browser</p>
         <h1>Progress</h1>
+        {bank.length === 0 ? <EmptyBank /> : null}
         <div className="card score-hero">
           <strong>{overall.attempted === 0 ? "—" : `${overall.accuracy}%`}</strong>
           <p>

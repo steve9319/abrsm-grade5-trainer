@@ -1,32 +1,32 @@
-import { TOPIC_IDS } from "@/lib/types";
 import type { Question } from "@/lib/types";
 import { shuffle } from "@/lib/random";
+import { PAPER_SECTIONS } from "@/lib/strategy";
 
-/** Theory topics only. The piano-practical set stays in practice mode. */
-export const EXAM_TOPICS = TOPIC_IDS.filter((topic) => topic !== "practical");
-
-export const EXAM_PER_TOPIC = 2;
+/** How many questions a section contributes when the private bank can fill it. A 10-mark section takes two; the 15-mark keys section takes three. */
+export function sectionQuestionQuota(marks: number): number {
+  return Math.max(1, Math.round(marks / 5));
+}
 
 export const EXAM_MINUTES = 30;
 
 export const EXAM_SECONDS = EXAM_MINUTES * 60;
 
-export function examQuestionCount(questions: Question[] = []): number {
-  if (questions.length === 0) return EXAM_TOPICS.length * EXAM_PER_TOPIC;
-  return EXAM_TOPICS.reduce((sum, topic) => {
-    const available = questions.filter((question) => question.topic === topic).length;
-    return sum + Math.min(EXAM_PER_TOPIC, available);
+export function examQuestionCount(questions: Question[]): number {
+  return PAPER_SECTIONS.reduce((sum, section) => {
+    const available = questions.filter((question) => section.topics.includes(question.topic)).length;
+    return sum + Math.min(sectionQuestionQuota(section.marks), available);
   }, 0);
 }
 
+/** A short paper in the shape of the Grade 5 theory sections, drawn from whatever the private bank holds. */
 export function pickExamQuestions(questions: Question[], rng: () => number = Math.random): Question[] {
   const picked: Question[] = [];
-  for (const topic of EXAM_TOPICS) {
+  for (const section of PAPER_SECTIONS) {
     const pool = shuffle(
-      questions.filter((question) => question.topic === topic),
+      questions.filter((question) => section.topics.includes(question.topic)),
       rng,
     );
-    picked.push(...pool.slice(0, EXAM_PER_TOPIC));
+    picked.push(...pool.slice(0, sectionQuestionQuota(section.marks)));
   }
   return shuffle(picked, rng);
 }

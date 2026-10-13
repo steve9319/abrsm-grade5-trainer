@@ -1,27 +1,25 @@
 import assert from "node:assert/strict";
+import fs from "fs";
+import path from "path";
 import { describe, it } from "node:test";
 import { CONCEPTS } from "@/lib/lessons";
 import { loadQuestions } from "@/lib/questions.server";
-import { TOPIC_IDS } from "@/lib/types";
 import { validateQuestion } from "@/lib/validate";
-import { EXAM_PER_TOPIC, EXAM_TOPICS } from "@/lib/exam";
 
-describe("question bank", () => {
-  const questions = loadQuestions();
+const fixtureDir = path.join(process.cwd(), "tests", "fixtures", "questions");
 
-  it("contains at least 60 original questions across every topic", () => {
-    assert.ok(questions.length >= 60, `expected at least 60 questions, found ${questions.length}`);
-    for (const topic of TOPIC_IDS) {
-      const count = questions.filter((question) => question.topic === topic).length;
-      assert.ok(count >= 4, `${topic} has only ${count} questions`);
-    }
-    for (const topic of EXAM_TOPICS) {
-      const count = questions.filter((question) => question.topic === topic).length;
-      assert.ok(count >= EXAM_PER_TOPIC, `${topic} cannot fill a mock paper`);
-    }
+describe("question schema", () => {
+  const questions = loadQuestions(fixtureDir);
+
+  it("keeps past-paper questions out of the repository", () => {
+    const shipped = path.join(process.cwd(), "data", "questions");
+    const files = fs.existsSync(shipped) ? fs.readdirSync(shipped).filter((name) => name.endsWith(".json")) : [];
+    assert.deepEqual(files, []);
+    assert.ok(questions.length >= 6);
+    assert.equal(JSON.stringify(questions).includes("ABRSM"), false);
   });
 
-  it("gives every question one correct answer and an explanation for every option", () => {
+  it("gives every fixture question one correct answer and an explanation for every option", () => {
     const ids = new Set<string>();
     for (const question of questions) {
       assert.equal(ids.has(question.id), false, `duplicate id ${question.id}`);
@@ -55,7 +53,7 @@ describe("question bank", () => {
       {
         id: "bad-duplicate",
         topic: "rhythm",
-        source: "original",
+        source: "fixture",
         question: "Which rest?",
         explanation: "Because.",
         correctAnswer: "A",
@@ -72,7 +70,7 @@ describe("question bank", () => {
       {
         id: "bad-blank",
         topic: "rhythm",
-        source: "original",
+        source: "fixture",
         question: "Which rest?",
         explanation: "",
         correctAnswer: "C",

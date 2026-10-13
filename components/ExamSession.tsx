@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { EmptyBank } from "@/components/EmptyBank";
 import { QuestionView } from "@/components/QuestionView";
 import { useExplanation } from "@/components/useExplanation";
 import { cn } from "@/lib/cn";
@@ -165,23 +166,30 @@ export function ExamSession({ questions }: { questions: Question[] }) {
         <div className="narrow">
           <p className="kicker">Timed mock</p>
           <h1>Grade 5 theory paper</h1>
-          <p className="lede">
-            {count} questions, two from each theory topic, and {EXAM_MINUTES} minutes on the clock.
-            You can move around the paper. The marking, including why each wrong option fails, appears
-            when you submit or when the time runs out.
-          </p>
-          <p className="syllabus">
-            The piano aural and sight-reading set stays in practice mode. The real Grade 5 theory exam
-            is longer; this mock is a rehearsal of switching topics against the clock.
-          </p>
-          <div className="row-actions">
-            <button className="btn primary" type="button" onClick={start}>
-              Start the paper
-            </button>
-            <Link className="btn ghost" href="/#topics">
-              Practise first
-            </Link>
-          </div>
+          {count === 0 ? (
+            <EmptyBank detail="No questions loaded with a stored answer. The mock draws a paper-shaped set from your private bank once those answers are stored. Drafts stay in topic practice." />
+          ) : (
+            <>
+              <p className="lede">
+                {count} {count === 1 ? "question" : "questions"} drawn from your papers in the shape of
+                the Grade 5 theory paper, and {EXAM_MINUTES} minutes on the clock. You can move around
+                the paper. Marking appears when you submit or when the time runs out.
+              </p>
+              <p className="syllabus">
+                A 10-mark section contributes up to two questions. Keys and scales, worth 15, contributes
+                up to three. Sections with nothing in the private bank are left out. The practical set
+                stays in practice mode.
+              </p>
+              <div className="row-actions">
+                <button className="btn primary" type="button" onClick={start}>
+                  Start the paper
+                </button>
+                <Link className="btn ghost" href="/#topics">
+                  Practise first
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     );

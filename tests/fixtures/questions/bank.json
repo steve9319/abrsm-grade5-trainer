@@ -1,0 +1,102 @@
+[
+  {
+    "id": "fixture-rhythm-01",
+    "topic": "rhythm",
+    "subtopic": "rests",
+    "source": "fixture",
+    "question": "In this invented drill, which rest lasts as long as a crotchet?",
+    "notation": "X:1\nM:4/4\nL:1/4\nK:C\nz |",
+    "notationAlt": "A crotchet rest on a treble staff.",
+    "options": [
+      { "id": "A", "text": "A quaver rest", "explanation": "A quaver rest is half a crotchet." },
+      { "id": "B", "text": "A crotchet rest", "explanation": "A crotchet rest matches one crotchet beat." },
+      { "id": "C", "text": "A minim rest", "explanation": "A minim rest lasts two crotchets." },
+      { "id": "D", "text": "A semibreve rest", "explanation": "A semibreve rest lasts four crotchets." }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The rest that fills one crotchet beat is a crotchet rest."
+  },
+  {
+    "id": "fixture-pitch-01",
+    "topic": "pitch",
+    "subtopic": "alto-clef",
+    "source": "fixture",
+    "question": "In this invented drill, which line does the alto clef mark as middle C?",
+    "notation": "X:1\nM:4/4\nL:1/4\nK:C clef=alto\nC4 |",
+    "notationAlt": "Alto clef with a semibreve on the middle line.",
+    "options": [
+      { "id": "A", "text": "The middle line", "explanation": "The alto clef centres on the middle line, and that line is middle C." },
+      { "id": "B", "text": "The top line", "explanation": "The top line of the alto staff is G." },
+      { "id": "C", "text": "The bottom line", "explanation": "The bottom line of the alto staff is F." },
+      { "id": "D", "text": "The space above the staff", "explanation": "Middle C is on the staff, not above it." }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The alto clef is a C clef fixed on the middle line."
+  },
+  {
+    "id": "fixture-keys-01",
+    "topic": "keys",
+    "subtopic": "key-signatures",
+    "source": "fixture",
+    "question": "In this invented drill, one sharp in the signature names which major key?",
+    "notation": "X:1\nM:4/4\nL:1/4\nK:G\nG A B c |",
+    "notationAlt": "Treble staff with one sharp, starting on G.",
+    "options": [
+      { "id": "A", "text": "G major", "explanation": "One sharp is F♯, and the last sharp sits a semitone below the major tonic G." },
+      { "id": "B", "text": "D major", "explanation": "D major has two sharps." },
+      { "id": "C", "text": "F major", "explanation": "F major has one flat, not one sharp." },
+      { "id": "D", "text": "C major", "explanation": "C major has an empty signature." }
+    ],
+    "correctAnswer": "A",
+    "explanation": "One sharp belongs to G major."
+  },
+  {
+    "id": "fixture-intervals-01",
+    "topic": "intervals",
+    "subtopic": "naming",
+    "source": "fixture",
+    "question": "In this invented drill, what is G up to D?",
+    "notation": "X:1\nM:2/4\nL:1/4\nK:C\nG D |",
+    "notationAlt": "Two crotchets, G then D.",
+    "options": [
+      { "id": "A", "text": "A perfect 4th", "explanation": "G up to C is the perfect 4th." },
+      { "id": "B", "text": "A perfect 5th", "explanation": "G–A–B–C–D is five letter names and a perfect 5th." },
+      { "id": "C", "text": "A major 6th", "explanation": "G up to E is a major 6th." },
+      { "id": "D", "text": "A minor 3rd", "explanation": "G up to B♭ is a minor 3rd." }
+    ],
+    "correctAnswer": "B",
+    "explanation": "G up to D is a perfect 5th."
+  },
+  {
+    "id": "fixture-chords-01",
+    "topic": "chords",
+    "subtopic": "triads",
+    "source": "fixture",
+    "question": "In this invented drill, the notes C E G are which triad?",
+    "notation": "X:1\nM:4/4\nL:1/4\nK:C\n[CEG]4 |",
+    "notationAlt": "A C major triad on the treble staff.",
+    "options": [
+      { "id": "A", "text": "C major", "explanation": "C–E–G stacks a major 3rd and a minor 3rd on C." },
+      { "id": "B", "text": "C minor", "explanation": "C minor would use E♭." },
+      { "id": "C", "text": "A minor", "explanation": "A minor is A–C–E." },
+      { "id": "D", "text": "G major", "explanation": "G major is G–B–D." }
+    ],
+    "correctAnswer": "A",
+    "explanation": "C–E–G is the C major triad."
+  },
+  {
+    "id": "fixture-terms-01",
+    "topic": "terms",
+    "subtopic": "italian",
+    "source": "fixture",
+    "question": "In this invented drill, allegro asks for which speed?",
+    "options": [
+      { "id": "A", "text": "Fast", "explanation": "Allegro is a fast tempo." },
+      { "id": "B", "text": "Slow", "explanation": "A slow tempo would be lento or adagio." },
+      { "id": "C", "text": "Gradually quieter", "explanation": "Gradually quieter is diminuendo." },
+      { "id": "D", "text": "At a walking pace", "explanation": "A walking pace is andante." }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Allegro means fast."
+  }
+]

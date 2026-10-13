@@ -5,17 +5,18 @@ import { useEffect, useState } from "react";
 import { loadProgress } from "@/lib/progress";
 import { overallStats, topicStats, weakestTopics } from "@/lib/stats";
 import { TOPICS } from "@/lib/topics";
-import { EXAM_MINUTES, EXAM_PER_TOPIC, EXAM_TOPICS } from "@/lib/exam";
+import { EmptyBank } from "@/components/EmptyBank";
+import { EXAM_MINUTES } from "@/lib/exam";
 import type { ProgressState, QuestionSummary } from "@/lib/types";
 
 export function HomeDashboard({
   bank,
-  privateCount = 0,
   draftCount = 0,
+  examCount = 0,
 }: {
   bank: QuestionSummary[];
-  privateCount?: number;
   draftCount?: number;
+  examCount?: number;
 }) {
   const [progress, setProgress] = useState<ProgressState | null>(null);
 
@@ -27,7 +28,6 @@ export function HomeDashboard({
   const overall = overallStats(bank, attempts);
   const topics = topicStats(bank, attempts);
   const weak = progress ? weakestTopics(topics) : [];
-  const examLength = EXAM_TOPICS.length * EXAM_PER_TOPIC;
 
   return (
     <div className="page">
@@ -37,8 +37,8 @@ export function HomeDashboard({
             <p className="eyebrow">Unofficial practice room</p>
             <h1>Grade 5 theory</h1>
             <p className="lede">
-              The written paper pianists take before Grade 6. Work through original questions in the
-              style of the ABRSM Grade 5 syllabus, then sit a timed mock.
+              The written paper pianists take before Grade 6. Practice comes from the papers you keep
+              on this computer, then a timed mock in the shape of the Grade 5 paper.
             </p>
             <div className="actions">
               <a className="btn primary" href="#topics">
@@ -70,7 +70,9 @@ export function HomeDashboard({
               <p className="stat-label">Mock papers</p>
               <p className="stat-value">{progress ? progress.exams.length : "—"}</p>
               <p className="stat-note">
-                {examLength} theory questions, {EXAM_MINUTES} minutes.
+                {examCount > 0
+                  ? `${examCount} questions in the shape of the theory paper, ${EXAM_MINUTES} minutes.`
+                  : "No questions loaded."}
               </p>
             </div>
           </aside>
@@ -78,15 +80,16 @@ export function HomeDashboard({
 
         <section className="section" id="topics">
           <h2>Topics</h2>
+          {bank.length === 0 ? <EmptyBank /> : null}
           <p className="section-intro">
             Rhythm, pitch, keys, intervals, chords, transposition, terms, ornaments and music in
             context, plus a short piano aural and sight-reading set.{" "}
             <Link href="/practice/mixed">Mix the whole bank.</Link>
-            {privateCount > 0
-              ? ` ${privateCount} from My papers ${privateCount === 1 ? "is" : "are"} included in topic practice, the mock, and weak-spot drills.`
+            {bank.length > 0
+              ? ` ${bank.length} ${bank.length === 1 ? "question is" : "questions are"} loaded from your private papers.`
               : ""}
             {draftCount > 0
-              ? ` ${draftCount} more from My papers ${draftCount === 1 ? "is" : "are"} in topic practice until an answer is stored.`
+              ? ` ${draftCount} ${draftCount === 1 ? "does" : "do"} not have an answer yet, so ${draftCount === 1 ? "it stays" : "they stay"} in topic practice until one is stored.`
               : ""}
           </p>
           <div className="topic-grid">

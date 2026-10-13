@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { QuestionView } from "@/components/QuestionView";
 import { useExplanation } from "@/components/useExplanation";
+import { EmptyBank } from "@/components/EmptyBank";
 import { loadProgress, recordAttempt } from "@/lib/progress";
 import { topicStats, weakestTopics } from "@/lib/stats";
 import { TOPICS } from "@/lib/topics";
@@ -64,7 +65,7 @@ export function PracticeSession({
       <div className="page">
         <div className="narrow">
           <h1>{title}</h1>
-          <p className="empty">No questions in this topic yet.</p>
+          <EmptyBank detail="No questions loaded for this round. Import a paper into the private folder, or pick another topic." />
           <Link className="btn ghost" href="/">
             Back to topics
           </Link>

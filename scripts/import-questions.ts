@@ -1,5 +1,6 @@
 import path from "path";
 import { importQuestionFile } from "@/lib/import-bank";
+import { privateBankDir } from "@/lib/private-bank";
 
 const USAGE = `Add questions you have the right to store to the bank.
 
@@ -7,11 +8,11 @@ Usage:
   npm run import-questions -- <file.json|file.csv> [options]
 
 Options:
-  --out <file>                     Destination for new ids (default: data/questions/imported.json)
+  --out <file>                     Destination for new ids (default: <private bank>/imported.json)
   --replace                        Overwrite a question when its id is already in the bank
   --dry-run                        Validate and report without writing
-  --allow-missing-explanations     Accept blank explanations (npm test will still fail until they are filled in)
-  --bank <dir>                     Question directory (default: data/questions)
+  --allow-missing-explanations     Accept blank explanations
+  --bank <dir>                     Question directory (default: PRIVATE_BANK_DIR or ./private-bank)
 
 CSV columns:
   id,topic,source,question,notation,notationAlt,correctAnswer,explanation,
@@ -46,7 +47,7 @@ if (args.flags.has("--help") || !args.input) {
   process.exit(args.flags.has("--help") ? 0 : 1);
 }
 
-const bankDir = path.resolve(args.bank ?? path.join(process.cwd(), "data", "questions"));
+const bankDir = path.resolve(args.bank ?? privateBankDir());
 const outPath = path.resolve(args.out ?? path.join(bankDir, "imported.json"));
 
 try {

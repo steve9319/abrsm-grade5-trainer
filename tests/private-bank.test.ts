@@ -7,7 +7,6 @@ import { DEFAULT_ANTHROPIC_MODEL } from "@/lib/explain";
 import { importMineru } from "@/lib/mineru";
 import { applyGeneratedPrivateAnswer, fillPrivateAnswers } from "@/lib/private-answers";
 import { loadAllQuestions, loadPrivateQuestions } from "@/lib/private-bank";
-import { loadQuestions } from "@/lib/questions.server";
 import type { Question } from "@/lib/types";
 
 const fixture = path.join(process.cwd(), "tests", "fixtures", "mineru-synthetic");
@@ -128,17 +127,19 @@ describe("MinerU private bank", () => {
     assert.match(again[0]?.privateAnswer?.note ?? "", /matches Claude/);
   });
 
-  it("merges private questions into practice without replacing the public bank", () => {
+  it("serves only the private folder, including when that folder is missing", () => {
     const out = fs.mkdtempSync(path.join(os.tmpdir(), "mineru-merge-"));
     const input = fs.mkdtempSync(path.join(os.tmpdir(), "mineru-merge-in-"));
     copyFixture(input);
     importMineru({ inputDir: input, outDir: out, year: 2024, paper: "A" });
-    const merged = loadAllQuestions({ privateDir: out });
-    const personal = merged.find((question) => question.id === "private-2024-a-1-1");
-    assert.equal(personal?.private, true);
-    assert.equal(personal?.source, "My papers");
-    assert.equal(loadQuestions().some((question) => question.private), false);
-    assert.equal(loadQuestions().some((question) => question.id === "private-2024-a-1-1"), false);
+    const loaded = loadAllQuestions({ privateDir: out });
+    assert.equal(loaded.length, 1);
+    assert.equal(loaded[0]?.private, true);
+    assert.equal(loaded[0]?.source, "My papers");
+    assert.equal(loaded[0]?.id, "private-2024-a-1-1");
+    const missing = fs.mkdtempSync(path.join(os.tmpdir(), "mineru-missing-"));
+    fs.rmdirSync(missing);
+    assert.deepEqual(loadAllQuestions({ privateDir: missing }), []);
     assert.equal(loadPrivateQuestions(out).length, 1);
   });
 
